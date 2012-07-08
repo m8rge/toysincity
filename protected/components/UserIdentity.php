@@ -47,4 +47,9 @@ class UserIdentity extends CBaseUserIdentity
 	{
 		return $this->_id;
 	}
+
+	public function getName()
+	{
+		return $this->email;
+	}
 }

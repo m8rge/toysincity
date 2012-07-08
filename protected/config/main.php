@@ -33,6 +33,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'loginUrl'=>array('site/login'),
 		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
@@ -48,6 +49,13 @@ return array(
 			'username' => $params['dbLogin'],
 			'password' => $params['dbPassword'],
 			'charset' => 'utf8',
+		),
+		'request'=>array(
+			'enableCsrfValidation'=>true,
+		),
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
 		),
 		/*'errorHandler'=>array(
 			// use 'site/error' action to display errors

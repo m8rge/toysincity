@@ -1,15 +1,19 @@
 <?php
 
-// This is the configuration for yiic console application.
-// Any writable CConsoleApplication properties can be configured here.
+$params = require('params.php');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Console Application',
 
-	// preloading 'log' component
+	'import'=>array(
+		'application.models.*',
+		'application.models.forms.*',
+		'application.components.*',
+		'application.helpers.*',
+	),
+
 	'preload'=>array('log'),
 
-	// application components
 	'components'=>array(
 		'db'=>array(
 			'connectionString' => 'mysql:host='.$params['dbHost'].';dbname='.$params['dbName'],
@@ -17,6 +21,10 @@ return array(
 			'username' => $params['dbLogin'],
 			'password' => $params['dbPassword'],
 			'charset' => 'utf8',
+		),
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
 		),
 		/*'log'=>array(
 			'class'=>'CLogRouter',
@@ -28,4 +36,7 @@ return array(
 			),
 		),*/
 	),
+	'params'=> array_merge($params, array(
+		'md5Salt' => 'ThisIsMymd5Salt(*&^%$#',
+	)),
 );
