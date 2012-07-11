@@ -21,8 +21,16 @@ class SiteController extends Controller
 		);
 	}*/
 
-	public function actionCatalog() {
+	public function actionCatalog($categoryId) {
+		$items = Item::model()->findAllByAttributes(array('categoryId'=>$categoryId));
 
+		/** @var $item Item */
+		foreach($items as $id => $item) {
+			$items[$id] = $item->getAttributes();
+		}
+		$this->render('category', array(
+			'items' => $items,
+		));
 	}
 
 	public function actionIndex()

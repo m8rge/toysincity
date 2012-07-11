@@ -16,6 +16,7 @@ return array(
 		'application.models.forms.*',
 		'application.components.*',
 		'application.helpers.*',
+		'application.widgets.*',
 	),
 
 	'modules'=>array(
@@ -41,6 +42,7 @@ return array(
 			'rules'=>array(
 				'/'=>'site/index',
 				'<action:\w+>'=>'site/<action>',
+				'catalog/<categoryId:.+>'=>'site/catalog',
 			),
 		),
 		'db'=>array(
@@ -64,10 +66,10 @@ return array(
 		/*'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
+//				array(
+//					'class'=>'CFileLogRoute',
+//					'levels'=>'error, warning',
+//				),
 				array(
 					'class'=>'CWebLogRoute',
 				),

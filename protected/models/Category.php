@@ -4,6 +4,9 @@
  * @property int id
  * @property int parentId
  * @property string name
+ *
+ * @property array childs
+ * @property Category parent
  */
 class Category extends CActiveRecord
 {
@@ -22,6 +25,14 @@ class Category extends CActiveRecord
 		return array(
 			array('name', 'length', 'max'=>255, 'allowEmpty'=>false),
 			array('parentId', 'in', 'range'=>$this->getAvailableParentIds()),
+		);
+	}
+
+	public function relations()
+	{
+		return array(
+			'parent' => array(self::BELONGS_TO, 'Category', 'parentId'),
+			'childs' => array(self::HAS_MANY, 'Category', 'parentId'),
 		);
 	}
 
