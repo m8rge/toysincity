@@ -1,7 +1,6 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('lib', realpath(dirname(__FILE__).'/../../lib'));
 
 $params = require('params.php');
 return array(
