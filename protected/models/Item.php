@@ -6,6 +6,7 @@
  * @property string photo
  * @property string description
  * @property int price
+ * @property int article
  * @property int categoryId
  * @property int vendorId
  * @property string age
@@ -29,10 +30,20 @@ class Item extends CActiveRecord
 			array('name, photo', 'length', 'max'=>255),
 			array('age', 'length', 'max'=>100),
 			array('description', 'safe'),
-			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
+			array('price, article', 'numerical', 'min'=>0, 'integerOnly'=>true),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id')),
 			array('vendorId', 'in', 'range' => CHtml::listData(Vendor::model()->findAll(),'id','id')),
 		);
 	}
 
+	public function findOrCreate($article) {
+		$model = self::model()->findByAttributes(array('article' => $article));
+		if (empty($model)) {
+			$model = new self;
+			$model->article = $article;
+			$model->save();
+		}
+
+		return $model;
+	}
 }

@@ -23,7 +23,7 @@ class FileSystem extends CComponent
 	 * @return string Uid of new file
 	 */
 	public function publishFile($fileName) {
-
+		throw new CException('not implemented');
 	}
 
 	/**
