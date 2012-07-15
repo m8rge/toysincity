@@ -48,7 +48,7 @@ class Item extends CActiveRecord
 	}
 
 	public function getUrl() {
-		return CHtml::normalizeUrl(array('site/item', 'itemId'=>$this->id));
+		return CHtml::normalizeUrl(array('site/item', 'itemId'=>$this->id, 'categoryId'=>$this->categoryId));
 	}
 
 	protected function afterDelete()

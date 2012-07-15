@@ -40,8 +40,24 @@ class SiteController extends Controller
 		));
 	}
 
-	public function actionItem($itemId) {
+	public function actionItem($itemId, $categoryId) {
+		/** @var $item Item */
+		$item = Item::model()->findByPk($itemId);
+		if (empty($item) || $item->categoryId != $categoryId)
+			throw new CHttpException(404);
 
+		/** @var $fs FileSystem */
+		$fs = Yii::app()->fs;
+
+		$item = $item->getAttributes();
+		$item['photo'] = json_decode($item['photo'], true);
+		foreach($item['photo'] as $id => $uid) {
+			$item['photo'][$id] = $fs->getFileUrl($uid);
+		}
+
+		$this->render('item', array(
+			'item' => $item,
+		));
 	}
 
 	public function actionIndex()
