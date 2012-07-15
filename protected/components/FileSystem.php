@@ -32,11 +32,21 @@ class FileSystem extends CComponent
 	}
 
 	/**
-	 * @param $uid
+	 * @param string $uid
 	 * @return string Url to file
 	 */
 	public function getFileUrl($uid) {
 		return $this->storageUrl.$uid;
+	}
+
+	/**
+	 * @param string $uid
+	 * @param integer $size
+	 * @return string Url to file
+	 */
+	public function getResizedUrl($uid, $size) {
+		$fileInfo = pathinfo($uid, PATHINFO_BASENAME | PATHINFO_EXTENSION);
+		return "{$this->storageUrl}{$fileInfo['basename']}_$size.{$fileInfo['extension']}";
 	}
 
 	/**
@@ -53,9 +63,11 @@ class FileSystem extends CComponent
 
 	/**
 	 * @param string $uid
-	 * @return bool
 	 */
 	public function removeFile($uid) {
-		return unlink($this->getFilePath($uid));
+		$filePath = $this->getFilePath($uid);
+		$fileInfo = pathinfo($filePath, PATHINFO_BASENAME | PATHINFO_DIRNAME);
+		foreach (glob($fileInfo['dirname'].'/'.$fileInfo['basename'].'*') as $file)
+			unlink($file);
 	}
 }

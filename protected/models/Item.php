@@ -46,4 +46,18 @@ class Item extends CActiveRecord
 
 		return $model;
 	}
+
+	public function getUrl() {
+		return CHtml::normalizeUrl(array('site/item', 'itemId'=>$this->id));
+	}
+
+	protected function afterDelete()
+	{
+		/** @var $fs FileSystem */
+		$fs = Yii::app()->fs;
+
+		foreach(json_decode($this->photo, true) as $uid) {
+			$fs->removeFile($uid);
+		}
+	}
 }

@@ -40,8 +40,9 @@ return array(
 			'showScriptName' => false,
 			'rules'=>array(
 				'/'=>'site/index',
-				'<action:\w+>'=>'site/<action>',
 				'catalog/<categoryId:.+>'=>'site/catalog',
+				'item/<itemId:.+>'=>'site/item',
+				'<action:\w+>'=>'site/<action>',
 			),
 		),
 		'db'=>array(
