@@ -10,10 +10,11 @@ class CategoriesTreeWidget extends CWidget
 		foreach($categories as $id => $category) {
 			$categoriesArray[$id] = $category->getAttributes();
 		}
-		$categoriesArray = TreeHelper::makeTree(null, $categoriesArray);
+		$tree = TreeHelper::makeTree(0, $categoriesArray);
 
 		$this->render('tree', array(
 			'categories' => $categoriesArray,
+			'tree' => $tree,
 		));
 	}
 }

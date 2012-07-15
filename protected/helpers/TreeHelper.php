@@ -10,14 +10,14 @@ class TreeHelper
 		$nodes = array(); // id => array(...)
 
 		// сперва каждому элементу присваиваем пустой лес
-		foreach($inputs as $child=>$parent) {
+		foreach($inputs as $child=>$input) {
 			$nodes[$child] = array();
-			$nodes[$parent[$parentFieldName]] = array();
+			$nodes[$input[$parentFieldName]] = array();
 		}
 
 		// затем добавляем пару (элемент => ссылка на его лес) в лес родителя
-		foreach($inputs as $child=>$parent) {
-			$nodes[$parent[$parentFieldName]][$child] = & $nodes[$child];
+		foreach($inputs as $child=>$input) {
+			$nodes[$input[$parentFieldName]][$child] = & $nodes[$child];
 		}
 
 		// и, наконец, создаём дерево - корневой элемент и его лес или если не можем построить корректное дерево
