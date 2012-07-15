@@ -69,11 +69,11 @@ class GrabInfoCommand extends CConsoleCommand
 		}
 
 		if (preg_match('#<strong>.*?<br />.*?<br />(.*?)</strong>#', $infoTd, $matches)) {
-			$item->name = trim($matches[1]);
+			$item->name = html_entity_decode(trim($matches[1]));
 		}
 
 		if (preg_match('#Возраст:.*?<strong>(.*?)<br />#', $infoTd, $matches)) {
-			$item->age = trim($matches[1]);
+			$item->age = html_entity_decode(trim($matches[1]));
 		}
 
 		$item->description = iconv('windows-1251', 'utf8', $itemPage->find('td.page strong', -1)->plaintext);
