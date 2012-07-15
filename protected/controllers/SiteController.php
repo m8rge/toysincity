@@ -24,13 +24,44 @@ class SiteController extends Controller
 	public function actionCatalog($categoryId) {
 		$items = Item::model()->findAllByAttributes(array('categoryId'=>$categoryId));
 
-		/** @var $item Item */
-		foreach($items as $id => $item) {
-			$items[$id] = $item->getAttributes();
-		}
 		$this->render('category', array(
-			'items' => $items,
+			'items' => RenderHelper::processItems($items),
 		));
+	}
+
+	public function actionItem($itemId, $categoryId) {
+		/** @var $item Item */
+		$item = Item::model()->findByPk($itemId);
+		if (empty($item) || $item->categoryId != $categoryId)
+			throw new CHttpException(404);
+
+		$this->render('item', array(
+			'item' => RenderHelper::processItem($item),
+		));
+	}
+
+	public function actionCart() {
+		$cart = Yii::app()->session['cart'];
+		$items = array();
+		if (is_array($cart))
+			$items = Item::model()->findAllByPk(array_keys($cart));
+
+		$this->render('cart', array(
+			'cart' => $cart,
+			'items' => RenderHelper::processItems($items),
+		));
+	}
+
+	public function actionAddToCart($itemId) {
+		$count = is_numeric($_POST['count']) && $_POST['count']>0 ? $_POST['count'] : 0;
+
+		$cart = Yii::app()->session['cart'];
+		if (isset($cart[$itemId]))
+			$cart[$itemId]+= $count;
+		else
+			$cart[$itemId] = $count;
+
+		$this->redirect(array('site/cart'));
 	}
 
 	public function actionIndex()

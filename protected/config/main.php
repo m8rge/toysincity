@@ -1,7 +1,6 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('lib', realpath(dirname(__FILE__).'/../../lib'));
 
 $params = require('params.php');
 return array(
@@ -41,8 +40,9 @@ return array(
 			'showScriptName' => false,
 			'rules'=>array(
 				'/'=>'site/index',
-				'<action:\w+>'=>'site/<action>',
+				'catalog/<categoryId:.+>/<itemId:.+>'=>'site/item',
 				'catalog/<categoryId:.+>'=>'site/catalog',
+				'<action:\w+>'=>'site/<action>',
 			),
 		),
 		'db'=>array(
@@ -58,6 +58,9 @@ return array(
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',
 			'connectionID'=>'db',
+		),
+		'fs' => array(
+			'class' => 'FileSystem'
 		),
 		/*'errorHandler'=>array(
 			// use 'site/error' action to display errors

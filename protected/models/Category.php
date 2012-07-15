@@ -41,4 +41,24 @@ class Category extends CActiveRecord
 		unset($ids[$this->id]);
 		return $ids;
 	}
+
+	public function getUrl() {
+		return CHtml::normalizeUrl(array('site/category', 'categoryId'=>$this->id));
+	}
+
+	public function findOrCreate($name, $parentId = null) {
+		$findArray = array('name'=>$name);
+		if (!empty($parentId))
+			$findArray['parentId'] = $parentId;
+		$model = self::model()->findByAttributes($findArray);
+		if (empty($model)) {
+			$model = new self;
+			$model->name = $name;
+			if (!empty($parentId))
+				$model->parentId = $parentId;
+			$model->save();
+		}
+
+		return $model;
+	}
 }
