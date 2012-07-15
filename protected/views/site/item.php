@@ -13,6 +13,11 @@ if (!empty($item['photo'])) {
 }
 ?>
 
+<form action="<?php echo CHtml::normalizeUrl(array('site/addToCart', 'itemId' => $item['id'])) ?>" method="post">
+	<input type="text" name="count" value="1" />
+	<input type="submit" value="добавить в корзину">
+</form>
+
 <p>Артикул: <?php echo $item['article']?></p>
 <p>Цена: <?php echo $item['price']?></p>
 <?php if (!empty($item['age'])) { ?>

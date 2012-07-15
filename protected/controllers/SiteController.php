@@ -22,21 +22,10 @@ class SiteController extends Controller
 	}*/
 
 	public function actionCatalog($categoryId) {
-		/** @var $fs FileSystem */
-		$fs = Yii::app()->fs;
-
 		$items = Item::model()->findAllByAttributes(array('categoryId'=>$categoryId));
 
-		/** @var $item Item */
-		foreach($items as $id => $item) {
-			$items[$id] = $item->getAttributes();
-			$items[$id]['photo'] = json_decode($items[$id]['photo'], true);
-			$items[$id]['photoUrl'] = reset($items[$id]['photo']);
-			$items[$id]['photoUrl'] = $fs->getFileUrl($items[$id]['photoUrl']);
-			$items[$id]['url'] = $item->getUrl();
-		}
 		$this->render('category', array(
-			'items' => $items,
+			'items' => RenderHelper::processItems($items),
 		));
 	}
 
@@ -46,18 +35,33 @@ class SiteController extends Controller
 		if (empty($item) || $item->categoryId != $categoryId)
 			throw new CHttpException(404);
 
-		/** @var $fs FileSystem */
-		$fs = Yii::app()->fs;
-
-		$item = $item->getAttributes();
-		$item['photo'] = json_decode($item['photo'], true);
-		foreach($item['photo'] as $id => $uid) {
-			$item['photo'][$id] = $fs->getFileUrl($uid);
-		}
-
 		$this->render('item', array(
-			'item' => $item,
+			'item' => RenderHelper::processItem($item),
 		));
+	}
+
+	public function actionCart() {
+		$cart = Yii::app()->session['cart'];
+		$items = array();
+		if (is_array($cart))
+			$items = Item::model()->findAllByPk(array_keys($cart));
+
+		$this->render('cart', array(
+			'cart' => $cart,
+			'items' => RenderHelper::processItems($items),
+		));
+	}
+
+	public function actionAddToCart($itemId) {
+		$count = is_numeric($_POST['count']) && $_POST['count']>0 ? $_POST['count'] : 0;
+
+		$cart = Yii::app()->session['cart'];
+		if (isset($cart[$itemId]))
+			$cart[$itemId]+= $count;
+		else
+			$cart[$itemId] = $count;
+
+		$this->redirect(array('site/cart'));
 	}
 
 	public function actionIndex()
