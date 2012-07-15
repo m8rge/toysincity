@@ -15,7 +15,7 @@ class FileSystem extends CComponent
 		if (!file_exists($this->storagePath))
 			mkdir($this->storagePath, 0777, true);
 		$this->storagePath = realpath($this->storagePath).'/';
-		if (is_dir($this->storagePath))
+		if (!is_dir($this->storagePath))
 			throw new CException('FileSystem->storagePath is not dir ('.$this->storagePath.')');
 	}
 

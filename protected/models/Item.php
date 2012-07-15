@@ -29,8 +29,8 @@ class Item extends CActiveRecord
 			array('name', 'required'),
 			array('name, photo', 'length', 'max'=>255),
 			array('age', 'length', 'max'=>100),
-			array('description', 'safe'),
-			array('price, article', 'numerical', 'min'=>0, 'integerOnly'=>true),
+			array('description, article', 'safe'),
+			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id')),
 			array('vendorId', 'in', 'range' => CHtml::listData(Vendor::model()->findAll(),'id','id')),
 		);
