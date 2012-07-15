@@ -28,6 +28,9 @@ return array(
 			'class'=>'CDbAuthManager',
 			'connectionID'=>'db',
 		),
+		'fs' => array(
+			'class' => 'FileSystem'
+		),
 		/*'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(

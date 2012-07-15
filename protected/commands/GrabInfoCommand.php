@@ -17,7 +17,7 @@ class GrabInfoCommand extends CConsoleCommand
 	}
 
 	private function parseItemPage($itemPageLink, Category $category) {
-		$itemPage = file_get_html($itemPageLink);
+		$itemPage = file_get_html(self::HOST.$itemPageLink);
 		$infoTd = $itemPage->find('td.page td', -1);
 		$infoTd = iconv('windows-1251', 'utf8', (string)$infoTd);
 
@@ -27,11 +27,11 @@ class GrabInfoCommand extends CConsoleCommand
 			throw new CException('cant parse article from '.$itemPageLink);
 		}
 
-		if (preg_match('#<strong>.*?<br>.*?<br>(.*?)</strong>#', $infoTd, $matches)) {
+		if (preg_match('#<strong>.*?<br />.*?<br />(.*?)</strong>#', $infoTd, $matches)) {
 			$item->name = $matches[1];
 		}
 
-		if (preg_match('#Возраст:.*?<strong>(.*?)<br>#', $infoTd, $matches)) {
+		if (preg_match('#Возраст:.*?<strong>(.*?)<br />#', $infoTd, $matches)) {
 			$item->age = $matches[1];
 		}
 
@@ -45,10 +45,12 @@ class GrabInfoCommand extends CConsoleCommand
 			/** @var $fs FileSystem */
 			$fs = Yii::app()->fs;
 
-			$imageContents = file_get_contents($image);
-			$tmpFile = tempnam(sys_get_temp_dir(), '');
+			$imageContents = file_get_contents(self::HOST.$image);
+			$ext = CFileHelper::getExtension($image);
+			$tmpFile = tempnam(sys_get_temp_dir(), '').'.'.$ext;
 			file_put_contents($tmpFile, $imageContents);
 			$images[$id] = $fs->publishFile($tmpFile);
+			unlink($tmpFile);
 		}
 		$item->photo = json_encode($images);
 
