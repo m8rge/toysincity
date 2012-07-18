@@ -43,7 +43,7 @@ class Category extends CActiveRecord
 	}
 
 	public function getUrl() {
-		return CHtml::normalizeUrl(array('site/category', 'categoryId'=>$this->id));
+		return CHtml::normalizeUrl(array('site/catalog', 'categoryId'=>$this->id));
 	}
 
 	public function findOrCreate($name, $parentId = null) {

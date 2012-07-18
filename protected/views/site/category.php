@@ -2,7 +2,9 @@
 /** @var $this CController */
 $this->pageTitle=Yii::app()->name;
 
-$this->widget('CategoriesTreeWidget');
+$this->widget('CategoriesTreeWidget', array(
+	'currentCategoryId' => $currentCategoryId,
+));
 
 foreach ($items as $item) {
 	echo "<div style='display: inline-block; margin:1em'><a href='{$item['url']}'>";

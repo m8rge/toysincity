@@ -26,6 +26,7 @@ class SiteController extends Controller
 
 		$this->render('category', array(
 			'items' => RenderHelper::processItems($items),
+			'currentCategoryId' => $categoryId,
 		));
 	}
 
