@@ -23,6 +23,8 @@ class SiteController extends Controller
 
 	public function actionCatalog($categoryId) {
 		$items = Item::model()->findAllByAttributes(array('categoryId'=>$categoryId));
+		if (empty($items))
+			throw new CHttpException(404);
 
 		$this->render('category', array(
 			'items' => RenderHelper::processItems($items),
