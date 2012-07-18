@@ -7,14 +7,14 @@ class CategoriesTreeWidget extends CWidget
 
 		$categoriesArray = array();
 		/** @var $category Category */
-		foreach($categories as $id => $category) {
-			$categoriesArray[$id] = $category->getAttributes();
+		foreach($categories as $category) {
+			$categoriesArray[$category->id] = $category->getAttributes();
 		}
-		$tree = TreeHelper::makeTree(0, $categoriesArray);
+		$tree = TreeHelper::makeTree(null, CHtml::listData($categories, 'id', 'parentId'));
 
 		$this->render('tree', array(
-			'categories' => $categoriesArray,
-			'tree' => $tree,
+			'categoriesArray' => $categoriesArray,
+			'tree' => $tree[null],
 		));
 	}
 }

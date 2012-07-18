@@ -1,7 +1,5 @@
 <?
 
-define('LIB_PATH', realpath(dirname(__FILE__).'/../../lib'));
-
 return array(
 	'siteName' => 'Игрушки в городе!',
 

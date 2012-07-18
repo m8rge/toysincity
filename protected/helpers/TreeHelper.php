@@ -2,7 +2,7 @@
 
 class TreeHelper
 {
-	static function makeTree($root, $inputs, $parentFieldName = 'parentId')
+	static function makeTree($root, $inputs)
 	{
 		// обращаем отношение: из Child->Parent делаем Parent->*Child
 
@@ -10,14 +10,14 @@ class TreeHelper
 		$nodes = array(); // id => array(...)
 
 		// сперва каждому элементу присваиваем пустой лес
-		foreach($inputs as $child=>$input) {
+		foreach($inputs as $child=>$parent) {
 			$nodes[$child] = array();
-			$nodes[$input[$parentFieldName]] = array();
+			$nodes[$parent] = array();
 		}
 
 		// затем добавляем пару (элемент => ссылка на его лес) в лес родителя
-		foreach($inputs as $child=>$input) {
-			$nodes[$input[$parentFieldName]][$child] = & $nodes[$child];
+		foreach($inputs as $child=>$parent) {
+			$nodes[$parent][$child] = & $nodes[$child];
 		}
 
 		// и, наконец, создаём дерево - корневой элемент и его лес или если не можем построить корректное дерево
