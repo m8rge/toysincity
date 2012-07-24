@@ -8,7 +8,7 @@ return array(
 	'name'=>$params['siteName'],
 	'language' => 'ru',
 
-	'preload'=>array('log'),
+//	'preload'=>array('log'),
 
 	'import'=>array(
 		'application.models.*',
@@ -42,6 +42,9 @@ return array(
 				'/'=>'site/index',
 				'catalog/<categoryId:.+>/<itemId:.+>'=>'site/item',
 				'catalog/<categoryId:.+>'=>'site/catalog',
+				'admin/' => 'admin/admin/index',
+				'admin/<controller:\w+>/' => 'admin/admin<controller>',
+				'admin/<controller:\w+>/<action:\w+>' => 'admin/admin<controller>/<action>',
 				'<action:\w+>'=>'site/<action>',
 			),
 		),
@@ -61,6 +64,23 @@ return array(
 		),
 		'fs' => array(
 			'class' => 'FileSystem'
+		),
+		'viewRenderer'=>array(
+			'class'=>'ext.ETwigViewRenderer',
+			'twigPathAlias' => 'lib.twig.lib.Twig',
+			'options' => array(
+				'autoescape' => true,
+			),
+			'functions' => array(
+				'widget' => array(
+					0 => 'TwigFunctions::widget',
+					1 => array('is_safe' => array('html')),
+				),
+			),
+		),
+		'bootstrap'=>array(
+			'class'=>'lib.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+			'responsiveCss' => true,
 		),
 		/*'errorHandler'=>array(
 			// use 'site/error' action to display errors

@@ -1,0 +1,26 @@
+{% extends 'views/layouts/admin.twig' %}
+
+{% block content %}
+
+<h2>Войти</h2>
+
+<p>Поля с символом <span class="required">*</span> обязательны для заполнения.</p>
+
+{% set form = this.beginWidget('bootstrap.widgets.BootActiveForm', {
+	'enableClientValidation': true,
+	'clientOptions': {'validateOnSubmit': true},
+	'htmlOptions' : {'class' : 'well'},
+}) %}
+
+{{ form.textFieldRow(model, 'email')|raw }}
+{{ form.passwordFieldRow(model, 'password')|raw }}
+{{ form.checkboxRow(model, 'rememberMe')|raw }}
+{{ widget('bootstrap.widgets.BootButton', {
+	'buttonType' : 'submit',
+	'icon' : 'ok',
+	'label' : 'Войти',
+}) }}
+
+{{ void(this.endWidget()) }}
+
+{% endblock %}

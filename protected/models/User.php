@@ -17,6 +17,11 @@ class User extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function init()
+	{
+		$this->scenario = 'save';
+	}
+
 	/**
 	 * @param array $attributes
 	 * @param string $condition
@@ -28,12 +33,34 @@ class User extends CActiveRecord
 		return parent::findByAttributes($attributes, $condition, $params);
 	}
 
+	public function attributeLabels()
+	{
+		return array(
+			'name' => 'Имя',
+			'email' => 'E-mail',
+			'password' => 'Пароль',
+		);
+	}
+
 	public function rules()
 	{
 		return array(
 			array('email', 'email', 'allowEmpty'=>false),
 			array('email', 'unique'),
-			array('password', 'length', 'is'=>32, 'allowEmpty'=>false),
+			array('email, password', 'required'),
+			array('password', 'length', 'is'=>32, 'allowEmpty'=>false, 'on'=>'save'),
+			array('password', 'length', 'max'=>31, 'allowEmpty'=>false, 'on'=>'edit'),
 		);
+	}
+
+	public function search()
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('email', $this->email, true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria' => $criteria,
+		));
 	}
 }
