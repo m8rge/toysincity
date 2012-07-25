@@ -16,20 +16,35 @@ class AdminItemsController extends AdminController
 	}
 
 	public function getTableColumns() {
+		$categories = Category::model()->findAll();
+		/** @var $category Category */
+		$categoriesArray = CHtml::listData($categories, 'id', 'name');
+		$tree = TreeHelper::makeTree(null, CHtml::listData($categories, 'id', 'parentId'));
+
+		$categoriesFilter = array();
+		foreach ($tree[null] as $id => $child) {
+			foreach ($child as $_id => $_child) {
+				$categoriesFilter[ $categoriesArray[$id] ][$_id] = $categoriesArray[$_id];
+			}
+		}
+
 		$attributes = array(
 			'article',
 			'name',
 			'price',
 			array(
-				'name' => 'category.name',
-				'filter' => CHtml::listData(Category::model()->findAll(), 'id', 'name'),
+				'name' => 'categoryId',
+				'value' => '($data->category->parent ? $data->category->parent->name : "")." / ".$data->category->name',
+				'filter' => $categoriesFilter,
+				'sortable' => false,
 			),
-		);
-
-		$attributes[] = array(
-			'class' => 'bootstrap.widgets.BootButtonColumn',
-			'template' => '{update}&nbsp;&nbsp;&nbsp;{delete}',
-			'updateButtonUrl' => 'Yii::app()->controller->createUrl("edit",array("id"=>$data->primaryKey))'
+			array(
+				'name' => 'vendorId',
+				'value' => '$data->vendor->name',
+				'filter' => CHtml::listData(Vendor::model()->findAll(), 'id', 'name'),
+				'sortable' => false,
+			),
+			$this->getButtonsColumn(),
 		);
 
 		return $attributes;

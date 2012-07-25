@@ -27,6 +27,7 @@ class Item extends CActiveRecord
 	{
 		return array(
 			'category' => array(self::BELONGS_TO, 'Category', 'categoryId'),
+			'vendor' => array(self::BELONGS_TO, 'Vendor', 'vendorId'),
 		);
 	}
 
@@ -54,7 +55,8 @@ class Item extends CActiveRecord
 			'description' => 'Описание',
 			'article' => 'Артикул',
 			'price' => 'Цена',
-			'categoryId' => '',
+			'categoryId' => 'Категория',
+			'vendorId' => 'Производитель',
 		);
 	}
 
@@ -92,6 +94,8 @@ class Item extends CActiveRecord
 		$criteria->compare('article', $this->article, true);
 		$criteria->compare('description', $this->description, true);
 		$criteria->compare('price', $this->description);
+		$criteria->compare('categoryId', $this->categoryId);
+		$criteria->compare('vendorId', $this->vendorId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
