@@ -8,10 +8,11 @@
 	'type' : 'horizontal',
 	'enableClientValidation': true,
 	'clientOptions': {'validateOnSubmit': true},
+	'htmlOptions' : {'enctype' : 'multipart/form-data'},
 }) %}
 
 {% for attributeName, element in editFormElements %}
-	{{ attribute(form, element['type']~'Row', [model, attributeName])|raw }}
+	{{ attribute(form, element['type']~'Row', [ model, attributeName, element['htmlOptions'] ? element['htmlOptions'] : [] ])|raw }}
 {% endfor %}
 
 <div class="form-actions">

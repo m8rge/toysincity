@@ -4,10 +4,6 @@ Yii::app()->getComponent('bootstrap');
 
 class AdminController extends Controller
 {
-	public $menu = array(
-		array('label' => 'Добавить', 'url' => array('add'))
-	);
-
 	public $modelName = null;
 	/**
 	 * @var array Склонение должно соответствовать словам соответственно: (добавить .., редактирование .., список ..)
@@ -15,9 +11,6 @@ class AdminController extends Controller
 	public $modelHumanTitle = array('модель','модели','моделей');
 
 	public $defaultAction = 'list';
-	public $listTitle = 'Список';
-	public $addTitle = 'Добавить';
-	public $editTitle = 'Редактирование';
 
 	public function filters()
 	{
@@ -30,44 +23,12 @@ class AdminController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('login', 'logout')
-			),
-			array('allow',
 				'roles'=>array('admin')
 			),
 			array('deny',
 				'users'=>array('*')
 			),
 		);
-	}
-
-	public function actionLogin()
-	{
-		$model=new LoginForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='LoginForm')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->getReturnUrl(array('site/index')));
-		}
-		// display the login form
-		$this->render('//admin/login',array('model'=>$model));
-	}
-
-	public function actionLogout()
-	{
-		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
 	}
 
 	public function actionAdd() {
@@ -94,7 +55,7 @@ class AdminController extends Controller
 		$this->beforeEdit($model);
 		$this->render('//admin/crud/'.($createNew ? 'add' : 'edit'), array(
 			'model' => $model,
-			'editFormElements' => $this->getEditFormElements(),
+			'editFormElements' => $this->getEditFormElements($model),
 		));
 	}
 
@@ -143,30 +104,39 @@ class AdminController extends Controller
 		$model = CActiveRecord::model($this->modelName);
 		$attributes = $model->getAttributes();
 		unset($attributes[ $model->metaData->tableSchema->primaryKey ]);
-		$attributes = array_keys($attributes);
+		$columns = array_keys($attributes);
 
-		$attributes[] = array(
+		$columns[] = $this->getButtonsColumn();
+
+		return $columns;
+	}
+
+	public function getButtonsColumn() {
+		return array(
 			'class' => 'bootstrap.widgets.BootButtonColumn',
 			'template' => '{update}&nbsp;&nbsp;&nbsp;{delete}',
 			'updateButtonUrl' => 'Yii::app()->controller->createUrl("edit",array("id"=>$data->primaryKey))'
 		);
-
-		return $attributes;
 	}
 
-	public function getEditFormElements() {
-		$elements['buttons'] = array(
-			'send'=> array(
-				'type' => 'submit',
-				'label'=> 'Сохранить',
-			),
-		);
-		if (!isset($elements['enctype']))
-			$elements['enctype'] = 'multipart/form-data';
-
-		return $elements;
+	/**
+	 * @param CActiveRecord $model
+	 * @return array
+	 */
+	public function getEditFormElements($model) {
+		return array();
 	}
 
+	/**
+	 * @param CActiveRecord $model
+	 */
 	public function beforeSave($model) {}
+	/**
+	 * @param CActiveRecord $model
+	 */
+	public function afterSave($model) {}
+	/**
+	 * @param CActiveRecord $model
+	 */
 	public function beforeEdit($model) {}
 }

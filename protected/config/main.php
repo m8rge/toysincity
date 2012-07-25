@@ -37,6 +37,7 @@ return array(
 		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			'urlSuffix' => '/',
 			'showScriptName' => false,
 			'rules'=>array(
 				'/'=>'site/index',
@@ -44,8 +45,10 @@ return array(
 				'catalog/<categoryId:.+>'=>'site/catalog',
 				'admin/' => 'admin/admin/index',
 				'admin/<controller:\w+>/' => 'admin/admin<controller>',
-				'admin/<controller:\w+>/<action:\w+>' => 'admin/admin<controller>/<action>',
-				'<action:\w+>'=>'site/<action>',
+				'admin/<controller:\w+>/<action:\w+>/' => 'admin/admin<controller>/<action>',
+				'<_a:(login|logout|error|cart|addToCart)>/' => 'site/<_a>',
+//				'<controller:\w+>' => '<controller>/index',
+//				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
 		),
 		'db'=>array(

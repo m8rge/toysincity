@@ -22,17 +22,6 @@ class User extends CActiveRecord
 		$this->scenario = 'save';
 	}
 
-	/**
-	 * @param array $attributes
-	 * @param string $condition
-	 * @param array $params
-	 * @return User|CActiveRecord
-	 */
-	public function findByAttributes($attributes, $condition = '', $params = array())
-	{
-		return parent::findByAttributes($attributes, $condition, $params);
-	}
-
 	public function attributeLabels()
 	{
 		return array(
@@ -50,6 +39,8 @@ class User extends CActiveRecord
 			array('email, password', 'required'),
 			array('password', 'length', 'is'=>32, 'allowEmpty'=>false, 'on'=>'save'),
 			array('password', 'length', 'max'=>31, 'allowEmpty'=>false, 'on'=>'edit'),
+
+			array('email', 'safe', 'on'=>'search'),
 		);
 	}
 

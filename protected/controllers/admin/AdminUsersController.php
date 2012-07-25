@@ -18,12 +18,31 @@ class AdminUsersController extends AdminController
 		);
 	}
 
+	public function getTableColumns() {
+		$columns = array(
+			'email',
+			array(
+				'name' => 'password',
+				'filter' => false,
+			),
+			$this->getButtonsColumn(),
+		);
+
+		return $columns;
+	}
+
+	/**
+	 * @param User $model
+	 */
 	public function beforeSave($model)
 	{
 		$model->password = md5($model->password.Yii::app()->params['md5Salt']);;
 		parent::beforeSave($model);
 	}
 
+	/**
+	 * @param User $model
+	 */
 	public function beforeEdit($model)
 	{
 		$model->password = '';

@@ -11,36 +11,29 @@
 
 <body>
 
+{% block mainMenu %}
+{{ widget('bootstrap.widgets.BootNavbar',{
+	'collapse' : true,
+	'items':[
+	{
+		'class' : 'bootstrap.widgets.BootMenu',
+		'items' : [
+			{'label':'Вернуться на сайт', 'url':['/site/index']},
+			{'label':'Пользователи', 'url':['/admin/adminUsers'], 'active' : this.id == 'admin/adminUsers' },
+			{'label':'Продукты', 'url':['/admin/adminItems'], 'active' : this.id == 'admin/adminItems' },
+		]
+	},{
+		'class' : 'bootstrap.widgets.BootMenu',
+		'htmlOptions' : {'class':'pull-right'},
+		'items' : [
+			{'label':'Выйти ('~App.user.name~')', 'url':['/site/logout'], 'visible':not App.user.isGuest}
+		]
+	}]
+}) }}
+{% endblock %}
+
 <div class="container" id="page">
-
-	<div id="mainmenu">
-		{% block mainMenu %}
-		{{ widget('bootstrap.widgets.BootNavbar',{
-			'collapse' : true,
-			'items':[
-			{
-				'class' : 'bootstrap.widgets.BootMenu',
-				'items' : [
-					{'label':'Вернуться на сайт', 'url':['/site/index']},
-					{'label':'Пользователи', 'url':['/admin/adminUsers'], 'active' : this.id == 'admin/adminUsers' },
-				]
-			},{
-				'class' : 'bootstrap.widgets.BootMenu',
-				'htmlOptions' : {'class':'pull-right'},
-				'items' : [
-					{'label':'Выйти ('~App.user.name~')', 'url':['/site/logout'], 'visible':not App.user.isGuest}
-				]
-			}]
-		}) }}
-		{% endblock %}
-	</div><!-- mainmenu -->
-
-	{% block pageContents %}
-	<div id="content">
-		{% block content %}{% endblock %}
-	</div><!-- content -->
-	{% endblock %}
-
+	{% block content %}{% endblock %}
 </div><!-- page -->
 
 </body>

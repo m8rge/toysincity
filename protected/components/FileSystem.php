@@ -66,8 +66,9 @@ class FileSystem extends CComponent
 	 */
 	public function removeFile($uid) {
 		$filePath = $this->getFilePath($uid);
-		$fileInfo = pathinfo($filePath, PATHINFO_BASENAME | PATHINFO_DIRNAME);
-		foreach (glob($fileInfo['dirname'].'/'.$fileInfo['basename'].'*') as $file)
+		$dirName = pathinfo($filePath, PATHINFO_DIRNAME);
+		$baseName = pathinfo($filePath, PATHINFO_BASENAME);
+		foreach (glob($dirName.'/'.$baseName.'*') as $file)
 			unlink($file);
 	}
 }

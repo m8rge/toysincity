@@ -23,6 +23,13 @@ class Item extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function relations()
+	{
+		return array(
+			'category' => array(self::BELONGS_TO, 'Category', 'categoryId'),
+		);
+	}
+
 	public function rules()
 	{
 		return array(
@@ -33,6 +40,21 @@ class Item extends CActiveRecord
 			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id')),
 			array('vendorId', 'in', 'range' => CHtml::listData(Vendor::model()->findAll(),'id','id')),
+
+			array('name, age, article, description, price', 'safe', 'on'=>'search'),
+		);
+	}
+
+	public function attributeLabels()
+	{
+		return array(
+			'name' => 'Наименование',
+			'photo' => 'Фото',
+			'age' => 'Возраст',
+			'description' => 'Описание',
+			'article' => 'Артикул',
+			'price' => 'Цена',
+			'categoryId' => '',
 		);
 	}
 
@@ -59,5 +81,20 @@ class Item extends CActiveRecord
 		foreach(json_decode($this->photo, true) as $uid) {
 			$fs->removeFile($uid);
 		}
+	}
+
+	public function search()
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('name', $this->name, true);
+		$criteria->compare('age', $this->age, true);
+		$criteria->compare('article', $this->article, true);
+		$criteria->compare('description', $this->description, true);
+		$criteria->compare('price', $this->description);
+
+		return new CActiveDataProvider($this, array(
+			'criteria' => $criteria,
+		));
 	}
 }
