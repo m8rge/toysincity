@@ -21,10 +21,6 @@ class AdminUsersController extends AdminController
 	public function getTableColumns() {
 		$columns = array(
 			'email',
-			array(
-				'name' => 'password',
-				'filter' => false,
-			),
 			$this->getButtonsColumn(),
 		);
 

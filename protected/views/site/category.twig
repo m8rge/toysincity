@@ -1,0 +1,792 @@
+{% extends '/views/layouts/main.twig' %}
+
+{% block categories %}
+	{{ widget('CategoriesTreeWidget', {'currentCategoryId':currentCategoryId}) }}
+{% endblock %}
+
+{% block content %}
+<table class="cpt_product_category_info">
+	<tr>
+		<td><h1 style="font-size: 20px">{{category.parent.name}} / {{category.name}}</h1>
+		</td></tr>
+</table>
+<table cellpadding="6" border="0" width="95%">
+
+{% for item in items %}
+{% if loop.index is not even %}
+<tr>
+{% endif %}
+<td valign="top" width="50%">
+	<!-- start product_brief.html -->
+	<form class="product_brief_block" action="/shop/cart/" method="post" rel="26167">
+		{#<input name="action" value="add_product" type="hidden">#}
+		{#<input name="productID" value="26167" type="hidden">#}
+		{#<input class="product_price" value="11995" type="hidden">#}
+
+		<div class="prdbrief_thumbnail">
+			<table cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="center" valign="middle" style="width: 150px; height: 150px;">
+						<!-- Thumbnail -->
+						<a href="{{item.url}}">
+							<img src="{{item.photoUrl}}" alt="{{item.name}}" title="{{item.name}}" style="max-width: 150px">
+						</a>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_name">
+			<a href="{{item.url}}">{{item.name}}</a>
+		</div>
+
+		{#<div class="prdbrief_brief_description">Сенсорная система управления.</div>#}
+
+		{#<div class="sm-current-rating1">#}
+			{#<div class="sm-current-rating1-back">&nbsp;</div>#}
+			{#<div class="sm-current-rating1-front" style="width: 47.16751px;">&nbsp;</div>#}
+		{#</div>#}
+		{#<div class="prdbrief_options">#}
+			{#<table>#}
+{##}
+				{#<tbody><tr>#}
+					{#<td>#}
+						{#Тарифный план:			</td>#}
+					{#<td>#}
+{##}
+						{#<select name="option_1" class="product_option">#}
+							{#<option value="" rel="0">Не определено</option>#}
+							{#<option value="69" rel="45" selected="selected">#}
+								{#Билайн (+ 45 руб.)#}
+							{#</option>#}
+							{#<option value="70" rel="0">#}
+								{#Мегафон#}
+							{#</option>#}
+							{#<option value="68" rel="190">#}
+								{#МТС (+ 190 руб.)#}
+							{#</option>#}
+						{#</select>#}
+					{#</td>#}
+				{#</tr>#}
+				{#</tbody></table>#}
+		{#</div>#}
+
+		<div class="prdbrief_price">
+			<span class="totalPrice">{{item.price}} руб.</span>
+		</div>
+
+
+		<div class="prdbrief_add2cart">
+			<input type="image" src="/images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+		</div>
+
+		{#<div class="prdbrief_comparison">#}
+			{#<input id="ctrl-prd-cmp-26167" class="checknomarging ctrl_products_cmp" type="checkbox" value="26167">#}
+			{#<label for="ctrl-prd-cmp-26167">Сравнить</label>#}
+		{#</div>#}
+
+	</form>
+	<!-- end product_brief.html -->
+
+</td>
+{% if loop.index is even %}
+</tr>
+{% endif %}
+{% endfor %}
+{#<tr>	<td valign="top" width="50%">
+	<!-- start product_brief.html -->
+	<form class="product_brief_block" action="/shop/cart/" method="post" rel="26167">
+		<input name="action" value="add_product" type="hidden">
+		<input name="productID" value="26167" type="hidden">
+		<input class="product_price" value="11995" type="hidden">
+
+		<div class="prdbrief_thumbnail">
+			<table cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="center" valign="middle" style="width: 150px; height: 150px;">
+						<!-- Thumbnail -->
+						<a href="/shop/product/iphone/">
+							<img src="products_pictures/iphone13z_thm.jpg" alt="iPhone" title="iPhone">
+						</a>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_name">
+			<a href="/shop/product/iphone/">iPhone</a>
+		</div>
+
+		<div class="prdbrief_brief_description">Сенсорная система управления.</div>
+
+		<div class="sm-current-rating1">
+			<div class="sm-current-rating1-back">&nbsp;</div>
+			<div class="sm-current-rating1-front" style="width: 47.16751px;">&nbsp;</div>
+		</div>
+		<div class="prdbrief_options">
+			<table>
+
+				<tbody><tr>
+					<td>
+						Тарифный план:			</td>
+					<td>
+
+						<select name="option_1" class="product_option">
+							<option value="" rel="0">Не определено</option>
+							<option value="69" rel="45" selected="selected">
+								Билайн (+ 45 руб.)
+							</option>
+							<option value="70" rel="0">
+								Мегафон
+							</option>
+							<option value="68" rel="190">
+								МТС (+ 190 руб.)
+							</option>
+						</select>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_price">
+			<span class="totalPrice">12040 руб.</span>
+		</div>
+
+
+		<div class="prdbrief_add2cart">
+			<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+		</div>
+
+		<div class="prdbrief_comparison">
+			<input id="ctrl-prd-cmp-26167" class="checknomarging ctrl_products_cmp" type="checkbox" value="26167">
+			<label for="ctrl-prd-cmp-26167">Сравнить</label>
+		</div>
+
+	</form>
+	<!-- end product_brief.html -->
+
+</td>
+	<td valign="top" width="50%">
+		<!-- start product_brief.html -->
+		<form class="product_brief_block" action="/shop/cart/" method="post" rel="26175">
+			<input name="action" value="add_product" type="hidden">
+			<input name="productID" value="26175" type="hidden">
+			<input class="product_price" value="0" type="hidden">
+
+			<div class="prdbrief_thumbnail">
+				<table cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td align="center" valign="middle" style="width: 150px; height: 150px;">
+							<!-- Thumbnail -->
+							<a href="/shop/product/mus-ii/">
+								<img src="products_pictures/mus21_thm.jpg" alt="Мус 2" title="Мус 2">
+							</a>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_name">
+				<a href="/shop/product/mus-ii/">Мус 2</a>
+			</div>
+
+			<div class="prdbrief_brief_description"><p><span class="smaller">Беспроводная оптическая двухкнопочная мышь в виде курсора.</span></p></div>
+
+			<div class="sm-current-rating1">
+				<div class="sm-current-rating1-back">&nbsp;</div>
+				<div class="sm-current-rating1-front" style="width: 41.08884px;">&nbsp;</div>
+			</div>
+
+
+
+
+			<div class="prdbrief_comparison">
+				<input id="ctrl-prd-cmp-26175" class="checknomarging ctrl_products_cmp" type="checkbox" value="26175">
+				<label for="ctrl-prd-cmp-26175">Сравнить</label>
+			</div>
+
+		</form>
+		<!-- end product_brief.html -->
+
+	</td>
+</tr>  	<tr>	<td valign="top" width="50%">
+	<!-- start product_brief.html -->
+	<form class="product_brief_block" action="/shop/cart/" method="post" rel="26176">
+		<input name="action" value="add_product" type="hidden">
+		<input name="productID" value="26176" type="hidden">
+		<input class="product_price" value="4199" type="hidden">
+
+		<div class="prdbrief_thumbnail">
+			<table cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="center" valign="middle" style="width: 150px; height: 150px;">
+						<!-- Thumbnail -->
+						<a href="/shop/product/optimus-mini-three-v-20/">
+							<img src="products_pictures/optimus31_thm.jpg" alt="Оптимус мини три 2.0" title="Оптимус мини три 2.0">
+						</a>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_name">
+			<a href="/shop/product/optimus-mini-three-v-20/">Оптимус мини три 2.0</a>
+		</div>
+
+		<div class="prdbrief_brief_description"><p><span class="smaller">Клавиатура с цветными дисплеями. ЮСБ. Писи/Мак.</span></p></div>
+
+		<div class="sm-current-rating1">
+			<div class="sm-current-rating1-back">&nbsp;</div>
+			<div class="sm-current-rating1-front" style="width: 41.91681px;">&nbsp;</div>
+		</div>
+
+		<div class="prdbrief_price">
+			<span class="totalPrice">4199 руб.</span>
+		</div>
+
+
+		<div class="prdbrief_add2cart">
+			<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+		</div>
+
+		<div class="prdbrief_comparison">
+			<input id="ctrl-prd-cmp-26176" class="checknomarging ctrl_products_cmp" type="checkbox" value="26176">
+			<label for="ctrl-prd-cmp-26176">Сравнить</label>
+		</div>
+
+	</form>
+	<!-- end product_brief.html -->
+
+</td>
+	<td valign="top" width="50%">
+		<!-- start product_brief.html -->
+		<form class="product_brief_block" action="/shop/cart/" method="post" rel="26177">
+			<input name="action" value="add_product" type="hidden">
+			<input name="productID" value="26177" type="hidden">
+			<input class="product_price" value="3385" type="hidden">
+
+			<div class="prdbrief_thumbnail">
+				<table cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td align="center" valign="middle" style="width: 150px; height: 150px;">
+							<!-- Thumbnail -->
+							<a href="/shop/product/sonicum/">
+								<img src="products_pictures/sonicum1_thm.jpg" alt="Соникум" title="Соникум">
+							</a>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_name">
+				<a href="/shop/product/sonicum/">Соникум</a>
+			</div>
+
+			<div class="prdbrief_brief_description"><p><span class="smaller">Аудиосистема из двух динамиков и сабвуфера. Подходит к компьютерам, плеерам, синтезаторам и т. д.</span></p></div>
+
+			<div class="sm-current-rating1">
+				<div class="sm-current-rating1-back">&nbsp;</div>
+				<div class="sm-current-rating1-front" style="width: 44.18206px;">&nbsp;</div>
+			</div>
+
+			<div class="prdbrief_price">
+				<span class="totalPrice">3385 руб.</span>
+			</div>
+
+
+			<div class="prdbrief_add2cart">
+				<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+			</div>
+
+			<div class="prdbrief_comparison">
+				<input id="ctrl-prd-cmp-26177" class="checknomarging ctrl_products_cmp" type="checkbox" value="26177">
+				<label for="ctrl-prd-cmp-26177">Сравнить</label>
+			</div>
+
+		</form>
+		<!-- end product_brief.html -->
+
+	</td>
+</tr>  	<tr>	<td valign="top" width="50%">
+	<!-- start product_brief.html -->
+	<form class="product_brief_block" action="/shop/cart/" method="post" rel="26186">
+		<input name="action" value="add_product" type="hidden">
+		<input name="productID" value="26186" type="hidden">
+		<input class="product_price" value="11990" type="hidden">
+
+		<div class="prdbrief_thumbnail">
+			<table cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="center" valign="middle" style="width: 150px; height: 150px;">
+						<!-- Thumbnail -->
+						<a href="/shop/product/htc-touch/">
+							<img src="products_pictures/herald_htc_touch_thm.jpg" alt="HTC Touch" title="HTC Touch">
+						</a>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_name">
+			<a href="/shop/product/htc-touch/">HTC Touch</a>
+		</div>
+
+		<div class="prdbrief_brief_description">Новый телефон-коммуникатор.</div>
+
+		<div class="sm-current-rating1">
+			<div class="sm-current-rating1-back">&nbsp;</div>
+			<div class="sm-current-rating1-front" style="width: 49.83342px;">&nbsp;</div>
+		</div>
+		<div class="prdbrief_options">
+			<table>
+
+				<tbody><tr>
+					<td>
+						Тарифный план:			</td>
+					<td>
+
+						<select name="option_1" class="product_option">
+							<option value="" rel="0">Не определено</option>
+							<option value="69" rel="0">
+								Билайн
+							</option>
+							<option value="70" rel="0">
+								Мегафон
+							</option>
+							<option value="68" rel="0" selected="selected">
+								МТС
+							</option>
+						</select>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_price">
+			<span class="totalPrice">11990 руб.</span>
+		</div>
+
+
+		<div class="prdbrief_add2cart">
+			<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+		</div>
+
+		<div class="prdbrief_comparison">
+			<input id="ctrl-prd-cmp-26186" class="checknomarging ctrl_products_cmp" type="checkbox" value="26186">
+			<label for="ctrl-prd-cmp-26186">Сравнить</label>
+		</div>
+
+	</form>
+	<!-- end product_brief.html -->
+
+</td>
+	<td valign="top" width="50%">
+		<!-- start product_brief.html -->
+		<form class="product_brief_block" action="/shop/cart/" method="post" rel="26169">
+			<input name="action" value="add_product" type="hidden">
+			<input name="productID" value="26169" type="hidden">
+			<input class="product_price" value="8995" type="hidden">
+
+			<div class="prdbrief_thumbnail">
+				<table cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td align="center" valign="middle" style="width: 150px; height: 150px;">
+							<!-- Thumbnail -->
+							<a href="/shop/product/ipod-touch/">
+								<img src="products_pictures/ipodtouch1_thm.jpg" alt="iPod touch" title="iPod touch">
+							</a>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_name">
+				<a href="/shop/product/ipod-touch/">iPod touch</a>
+			</div>
+
+			<div class="prdbrief_brief_description">iPod с multi-touch интерфейсом</div>
+
+			<div class="sm-current-rating1">
+				<div class="sm-current-rating1-back">&nbsp;</div>
+				<div class="sm-current-rating1-front" style="width: 40.93739px;">&nbsp;</div>
+			</div>
+			<div class="prdbrief_options">
+				<table>
+
+					<tbody><tr>
+						<td>
+							Емкость/вместимость:			</td>
+						<td>
+
+							<select name="option_1" class="product_option">
+								<option value="" rel="0">Не определено</option>
+								<option value="46" rel="0">
+									8Гб
+								</option>
+								<option value="45" rel="2989" selected="selected">
+									16Гб (+ 2989 руб.)
+								</option>
+							</select>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_price">
+				<span class="totalPrice">11984 руб.</span>
+			</div>
+
+
+			<div class="prdbrief_add2cart">
+				<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+			</div>
+
+			<div class="prdbrief_comparison">
+				<input id="ctrl-prd-cmp-26169" class="checknomarging ctrl_products_cmp" type="checkbox" value="26169">
+				<label for="ctrl-prd-cmp-26169">Сравнить</label>
+			</div>
+
+		</form>
+		<!-- end product_brief.html -->
+
+	</td>
+</tr>  	<tr>	<td valign="top" width="50%">
+	<!-- start product_brief.html -->
+	<form class="product_brief_block" action="/shop/cart/" method="post" rel="26187">
+		<input name="action" value="add_product" type="hidden">
+		<input name="productID" value="26187" type="hidden">
+		<input class="product_price" value="5990" type="hidden">
+
+		<div class="prdbrief_thumbnail">
+			<table cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="center" valign="middle" style="width: 150px; height: 150px;">
+						<!-- Thumbnail -->
+						<a href="/shop/product/nokia-6300/">
+							<img src="products_pictures/nokia6300_thm.jpg" alt="Nokia 6300" title="Nokia 6300">
+						</a>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_name">
+			<a href="/shop/product/nokia-6300/">Nokia 6300</a>
+		</div>
+
+		<div class="prdbrief_brief_description">Недорогой практичный мобильный телефон.</div>
+
+		<div class="sm-current-rating1">
+			<div class="sm-current-rating1-back">&nbsp;</div>
+			<div class="sm-current-rating1-front" style="width: 42.79171px;">&nbsp;</div>
+		</div>
+		<div class="prdbrief_options">
+			<table>
+
+				<tbody><tr>
+					<td>
+						Тарифный план:			</td>
+					<td>
+
+						<select name="option_1" class="product_option">
+							<option value="" rel="0">Не определено</option>
+							<option value="69" rel="45" selected="selected">
+								Билайн (+ 45 руб.)
+							</option>
+							<option value="70" rel="-100">
+								Мегафон (- 100 руб.)
+							</option>
+							<option value="68" rel="0">
+								МТС
+							</option>
+						</select>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_price">
+			<span class="totalPrice">6035 руб.</span>
+		</div>
+
+
+		<div class="prdbrief_add2cart">
+			<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+		</div>
+
+		<div class="prdbrief_comparison">
+			<input id="ctrl-prd-cmp-26187" class="checknomarging ctrl_products_cmp" type="checkbox" value="26187">
+			<label for="ctrl-prd-cmp-26187">Сравнить</label>
+		</div>
+
+	</form>
+	<!-- end product_brief.html -->
+
+</td>
+	<td valign="top" width="50%">
+		<!-- start product_brief.html -->
+		<form class="product_brief_block" action="/shop/cart/" method="post" rel="26170">
+			<input name="action" value="add_product" type="hidden">
+			<input name="productID" value="26170" type="hidden">
+			<input class="product_price" value="2395" type="hidden">
+
+			<div class="prdbrief_thumbnail">
+				<table cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td align="center" valign="middle" style="width: 150px; height: 150px;">
+							<!-- Thumbnail -->
+							<a href="/shop/product/ipod-shuffle/">
+								<img src="products_pictures/ipodshuffle2_thm.jpg" alt="iPod shuffle" title="iPod shuffle">
+							</a>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_name">
+				<a href="/shop/product/ipod-shuffle/">iPod shuffle</a>
+			</div>
+
+			<div class="prdbrief_brief_description">Самый маленький iPod</div>
+
+			<div class="sm-current-rating1">
+				<div class="sm-current-rating1-back">&nbsp;</div>
+				<div class="sm-current-rating1-front" style="width: 39.09893px;">&nbsp;</div>
+			</div>
+			<div class="prdbrief_options">
+				<table>
+
+					<tbody><tr>
+						<td>
+							Цвет:			</td>
+						<td>
+
+							<select name="option_1" class="product_option">
+								<option value="" rel="0">Не определено</option>
+								<option value="48" rel="0">
+									белый
+								</option>
+								<option value="47" rel="0" selected="selected">
+									голубой
+								</option>
+								<option value="52" rel="0">
+									зеленый
+								</option>
+								<option value="49" rel="0">
+									красный
+								</option>
+								<option value="53" rel="0">
+									розовый
+								</option>
+								<option value="51" rel="0">
+									синий
+								</option>
+								<option value="50" rel="0">
+									фиолетовый
+								</option>
+							</select>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_price">
+				<span class="totalPrice">2395 руб.</span>
+			</div>
+
+
+			<div class="prdbrief_add2cart">
+				<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+			</div>
+
+			<div class="prdbrief_comparison">
+				<input id="ctrl-prd-cmp-26170" class="checknomarging ctrl_products_cmp" type="checkbox" value="26170">
+				<label for="ctrl-prd-cmp-26170">Сравнить</label>
+			</div>
+
+		</form>
+		<!-- end product_brief.html -->
+
+	</td>
+</tr>  	<tr>	<td valign="top" width="50%">
+	<!-- start product_brief.html -->
+	<form class="product_brief_block" action="/shop/cart/" method="post" rel="26189">
+		<input name="action" value="add_product" type="hidden">
+		<input name="productID" value="26189" type="hidden">
+		<input class="product_price" value="16490" type="hidden">
+
+		<div class="prdbrief_thumbnail">
+			<table cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="center" valign="middle" style="width: 150px; height: 150px;">
+						<!-- Thumbnail -->
+						<a href="/shop/product/nokia-n95/">
+							<img src="products_pictures/nokia-n95-l_thm.jpg" alt="Nokia N95" title="Nokia N95">
+						</a>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_name">
+			<a href="/shop/product/nokia-n95/">Nokia N95</a>
+		</div>
+
+		<div class="prdbrief_brief_description">Смартфон Nokia.</div>
+
+		<div class="sm-current-rating1">
+			<div class="sm-current-rating1-back">&nbsp;</div>
+			<div class="sm-current-rating1-front" style="width: 38.32764px;">&nbsp;</div>
+		</div>
+		<div class="prdbrief_options">
+			<table>
+
+				<tbody><tr>
+					<td>
+						Тарифный план:			</td>
+					<td>
+
+						<select name="option_1" class="product_option">
+							<option value="" rel="0">Не определено</option>
+							<option value="69" rel="45" selected="selected">
+								Билайн (+ 45 руб.)
+							</option>
+							<option value="70" rel="-100">
+								Мегафон (- 100 руб.)
+							</option>
+							<option value="68" rel="0">
+								МТС
+							</option>
+						</select>
+					</td>
+				</tr>
+				</tbody></table>
+		</div>
+
+		<div class="prdbrief_price">
+			<span class="totalPrice">16535 руб.</span>
+		</div>
+
+
+		<div class="prdbrief_add2cart">
+			<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+		</div>
+
+		<div class="prdbrief_comparison">
+			<input id="ctrl-prd-cmp-26189" class="checknomarging ctrl_products_cmp" type="checkbox" value="26189">
+			<label for="ctrl-prd-cmp-26189">Сравнить</label>
+		</div>
+
+	</form>
+	<!-- end product_brief.html -->
+
+</td>
+	<td valign="top" width="50%">
+		<!-- start product_brief.html -->
+		<form class="product_brief_block" action="/shop/cart/" method="post" rel="26171">
+			<input name="action" value="add_product" type="hidden">
+			<input name="productID" value="26171" type="hidden">
+			<input class="product_price" value="4495" type="hidden">
+
+			<div class="prdbrief_thumbnail">
+				<table cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td align="center" valign="middle" style="width: 150px; height: 150px;">
+							<!-- Thumbnail -->
+							<a href="/shop/product/ipod-nano/">
+								<img src="products_pictures/ipodnano1_thm.jpg" alt="iPod nano" title="iPod nano">
+							</a>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_name">
+				<a href="/shop/product/ipod-nano/">iPod nano</a>
+			</div>
+
+			<div class="prdbrief_brief_description">Новый iPod nano.</div>
+
+			<div class="sm-current-rating1">
+				<div class="sm-current-rating1-back">&nbsp;</div>
+				<div class="sm-current-rating1-front" style="width: 39.27534px;">&nbsp;</div>
+			</div>
+			<div class="prdbrief_options">
+				<table>
+
+					<tbody><tr>
+						<td>
+							Цвет:			</td>
+						<td>
+
+							<select name="option_1" class="product_option">
+								<option value="" rel="0">Не определено</option>
+								<option value="48" rel="0" selected="selected">
+									белый
+								</option>
+								<option value="54" rel="0">
+									черный
+								</option>
+								<option value="47" rel="0">
+									голубой
+								</option>
+								<option value="55" rel="0">
+									желтый
+								</option>
+								<option value="52" rel="0">
+									зеленый
+								</option>
+								<option value="49" rel="0">
+									красный
+								</option>
+								<option value="53" rel="0">
+									розовый
+								</option>
+								<option value="51" rel="0">
+									синий
+								</option>
+								<option value="50" rel="0">
+									фиолетовый
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Емкость/вместимость:			</td>
+						<td>
+
+							<select name="option_2" class="product_option">
+								<option value="" rel="0">Не определено</option>
+								<option value="56" rel="0" selected="selected">
+									4Гб
+								</option>
+								<option value="46" rel="0">
+									8Гб
+								</option>
+							</select>
+						</td>
+					</tr>
+					</tbody></table>
+			</div>
+
+			<div class="prdbrief_price">
+				<span class="totalPrice">4495 руб.</span>
+			</div>
+
+
+			<div class="prdbrief_add2cart">
+				<input type="image" src="images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+			</div>
+
+			<div class="prdbrief_comparison">
+				<input id="ctrl-prd-cmp-26171" class="checknomarging ctrl_products_cmp" type="checkbox" value="26171">
+				<label for="ctrl-prd-cmp-26171">Сравнить</label>
+			</div>
+
+		</form>
+		<!-- end product_brief.html -->
+
+	</td>
+</tr>  </tbody>#}</table>
+{% endblock %}

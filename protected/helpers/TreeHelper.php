@@ -26,4 +26,24 @@ class TreeHelper
 
 		return $tree;
 	}
+
+	static function getTreeForDropDownBox($models, $canSelectRoots = false, $fieldNames = array('id'=>'id', 'name'=>'name', 'parentId'=>'parentId')) {
+		$categoriesArray = CHtml::listData($models, $fieldNames['id'], $fieldNames['name']);
+		$tree = TreeHelper::makeTree(null, CHtml::listData($models, $fieldNames['id'], $fieldNames['parentId']));
+
+		$result = array();
+		foreach ($tree[null] as $id => $child) {
+			if ($canSelectRoots)
+				$result[$id] = $categoriesArray[$id];
+			foreach ($child as $_id => $_child) {
+				if ($canSelectRoots) {
+					$result[$_id] = '- - '.$categoriesArray[$_id];
+				} else {
+					$result[ $categoriesArray[$id] ][$_id] = $categoriesArray[$_id];
+				}
+			}
+		}
+
+		return $result;
+	}
 }

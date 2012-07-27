@@ -16,10 +16,27 @@ class Vendor extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function attributeLabels()
+	{
+		return array(
+			'name' => 'Название',
+		);
+	}
 	public function rules()
 	{
 		return array(
+			array('name', 'required'),
 			array('name', 'length', 'max'=>255, 'allowEmpty'=>false),
 		);
+	}
+	public function search()
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('name', $this->name, true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria' => $criteria,
+		));
 	}
 }

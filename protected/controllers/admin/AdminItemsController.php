@@ -16,18 +16,6 @@ class AdminItemsController extends AdminController
 	}
 
 	public function getTableColumns() {
-		$categories = Category::model()->findAll();
-		/** @var $category Category */
-		$categoriesArray = CHtml::listData($categories, 'id', 'name');
-		$tree = TreeHelper::makeTree(null, CHtml::listData($categories, 'id', 'parentId'));
-
-		$categoriesFilter = array();
-		foreach ($tree[null] as $id => $child) {
-			foreach ($child as $_id => $_child) {
-				$categoriesFilter[ $categoriesArray[$id] ][$_id] = $categoriesArray[$_id];
-			}
-		}
-
 		$attributes = array(
 			'article',
 			'name',
@@ -35,7 +23,7 @@ class AdminItemsController extends AdminController
 			array(
 				'name' => 'categoryId',
 				'value' => '($data->category->parent ? $data->category->parent->name : "")." / ".$data->category->name',
-				'filter' => $categoriesFilter,
+				'filter' => TreeHelper::getTreeForDropDownBox(Category::model()->findAll()),
 				'sortable' => false,
 			),
 			array(

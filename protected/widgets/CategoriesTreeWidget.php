@@ -19,6 +19,7 @@ class CategoriesTreeWidget extends CWidget
 
 		$this->render('tree', array(
 			'categoriesArray' => $categoriesArray,
+			'currentCategoryId' => $this->currentCategoryId,
 			'tree' => $tree[null],
 		));
 	}

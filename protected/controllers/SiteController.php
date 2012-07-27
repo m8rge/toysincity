@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-	public $layout = '//layouts/main';
+//	public $layout = '//layouts/main';
 
 	/**
 	 * Declares class-based actions.
@@ -31,6 +31,7 @@ class SiteController extends Controller
 		$this->render('category', array(
 			'items' => RenderHelper::processItems($items),
 			'currentCategoryId' => $categoryId,
+			'category' => Category::model()->findByPk($categoryId),
 		));
 	}
 
@@ -42,6 +43,7 @@ class SiteController extends Controller
 
 		$this->render('item', array(
 			'item' => RenderHelper::processItem($item),
+			'category' => $item->category,
 		));
 	}
 
@@ -71,7 +73,15 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
-		$this->render('index');
+		$items = Item::model()->findAll(array(
+			'order' => 'RAND()',
+			'limit' => 10,
+		));
+
+		$this->render('index', array(
+			'items' => RenderHelper::processItems($items),
+
+		));
 	}
 
 	public function actionError()
