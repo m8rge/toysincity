@@ -4,6 +4,11 @@
  * @property int id
  * @property int userId
  * @property string order
+ * @property string address
+ * @property string date
+ * @property string userEmail
+ * @property string userName
+ * @property string userPhone
  * @property int created
  */
 class Order extends CActiveRecord
@@ -15,6 +20,7 @@ class Order extends CActiveRecord
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'created',
 				'updateAttribute' => null,
+				'timestampExpression' => 'time()',
 			),
 		);
 	}
@@ -46,7 +52,12 @@ class Order extends CActiveRecord
 		return array(
 			'id' => 'Номер заказа',
 			'userId' => 'Пользователь',
+			'address' => 'Адрес доставки',
+			'date' => 'Дата доставки',
 			'orderText' => 'Содержание заказа',
+			'userName' => 'Имя заказчика',
+			'userEmail' => 'E-mail заказчика',
+			'userPhone' => 'Телефон заказчика',
 			'created' => 'Дата создания',
 			'formattedCreatedDate' => 'Дата создания',
 		);
@@ -55,9 +66,11 @@ class Order extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('created', 'numerical', 'integerOnly' => true,  'allowEmpty'=>false),
+			array('userEmail', 'email', 'allowEmpty'=>false),
+			array('created', 'numerical', 'integerOnly' => true),
 			array('userId', 'in', 'range' => CHtml::listData(User::model()->findAll(),'id','id')),
-
+			array('address, date, order', 'safe'),
+			array('userName, userEmail, userPhone', 'required'),
 
 			array('id, created, userId', 'safe', 'on'=>'search'),
 		);
@@ -67,8 +80,15 @@ class Order extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('userId', $this->userId);
+		$criteria->compare('id', $this->id);
 		$criteria->compare('created', $this->created);
+		$criteria->compare('address', $this->address, true);
+		$criteria->compare('userName', $this->userName, true);
+		$criteria->compare('userEmail', $this->userEmail, true);
+		$criteria->compare('userPhone', $this->userPhone, true);
+		$criteria->compare('date', $this->date, true);
+//		$criteria->with = array('user');
+//		$criteria->compare('user.email', $this->userId, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -3,6 +3,8 @@
 /**
  * @property int id
  * @property string email
+ * @property string name
+ * @property string phone
  * @property string password
  */
 class User extends CActiveRecord
@@ -10,7 +12,7 @@ class User extends CActiveRecord
 	/**
 	 * @static
 	 * @param string $className
-	 * @return User|CActiveRecord
+	 * @return User
 	 */
 	public static function model($className = __CLASS__)
 	{
@@ -25,8 +27,9 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'name' => 'Имя',
 			'email' => 'E-mail',
+			'name' => 'Имя',
+			'phone' => 'Телефон',
 			'password' => 'Пароль',
 		);
 	}
@@ -39,6 +42,7 @@ class User extends CActiveRecord
 			array('email, password', 'required'),
 			array('password', 'length', 'is'=>32, 'allowEmpty'=>false, 'on'=>'save'),
 			array('password', 'length', 'max'=>31, 'allowEmpty'=>false, 'on'=>'edit'),
+			array('name, phone', 'safe'),
 
 			array('email', 'safe', 'on'=>'search'),
 		);
@@ -49,6 +53,8 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('email', $this->email, true);
+		$criteria->compare('name', $this->name, true);
+		$criteria->compare('phone', $this->phone, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

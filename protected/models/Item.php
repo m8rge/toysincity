@@ -50,7 +50,7 @@ class Item extends CActiveRecord
 	{
 		return array(
 			'name' => 'Наименование',
-			'photo' => 'Фото',
+			'previewPhotoUrl' => 'Фото',
 			'age' => 'Возраст',
 			'description' => 'Описание',
 			'article' => 'Артикул',
@@ -85,6 +85,15 @@ class Item extends CActiveRecord
 		}
 	}
 
+	public function getPreviewPhotoUrl() {
+		/** @var $fs FileSystem */
+		$fs = Yii::app()->fs;
+
+		$photo = json_decode($this->photo, true);
+		$photo = reset($photo);
+		return $fs->getFileUrl($photo);
+	}
+
 	public function search()
 	{
 		$criteria=new CDbCriteria;
@@ -93,7 +102,7 @@ class Item extends CActiveRecord
 		$criteria->compare('age', $this->age, true);
 		$criteria->compare('article', $this->article, true);
 		$criteria->compare('description', $this->description, true);
-		$criteria->compare('price', $this->description);
+		$criteria->compare('price', $this->price);
 		$criteria->compare('categoryId', $this->categoryId);
 		$criteria->compare('vendorId', $this->vendorId);
 

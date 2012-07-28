@@ -12,6 +12,12 @@ class AdminUsersController extends AdminController
 			'email' => array(
 				'type' => 'textField'
 			),
+			'name' => array(
+				'type' => 'textField'
+			),
+			'phone' => array(
+				'type' => 'textField'
+			),
 			'password' => array(
 				'type' => 'passwordField'
 			),
@@ -21,6 +27,8 @@ class AdminUsersController extends AdminController
 	public function getTableColumns() {
 		$columns = array(
 			'email',
+			'name',
+			'phone',
 			$this->getButtonsColumn(),
 		);
 

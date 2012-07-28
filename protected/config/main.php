@@ -59,7 +59,7 @@ return array(
 			'charset' => 'utf8',
 		),
 		'request'=>array(
-			'enableCsrfValidation'=>true,
+//			'enableCsrfValidation'=>true,
 		),
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',

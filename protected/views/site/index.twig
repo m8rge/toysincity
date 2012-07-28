@@ -15,7 +15,7 @@
 	{% endif %}
 	<td valign="top" width="50%">
 		<!-- start product_brief.html -->
-		<form class="product_brief_block" action="/shop/cart/" method="post" rel="26167">
+		<form class="product_brief_block" action="{{C.Html.normalizeUrl({0:'site/addToCart', 'itemId':item.id})}}" method="post">
 
 		<div class="prdbrief_thumbnail">
 			<table cellpadding="0" cellspacing="0">

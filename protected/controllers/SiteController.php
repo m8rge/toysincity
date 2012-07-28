@@ -53,10 +53,27 @@ class SiteController extends Controller
 		if (is_array($cart))
 			$items = Item::model()->findAllByPk(array_keys($cart));
 
+		$order = new Order();
+		if(isset($_POST['Order']))
+		{
+			$order->attributes=$_POST['Order'];
+			$order->order = json_encode($cart);
+			// validate user input and redirect to the previous page if valid
+			if($order->validate() && $order->save()) {
+				Yii::app()->session['cart'] = array();
+				$this->redirect(array('site/order'));
+			}
+		}
+
 		$this->render('cart', array(
 			'cart' => $cart,
-			'items' => RenderHelper::processItems($items),
+			'items' => RenderHelper::processIdItems($items),
+			'order' => $order,
 		));
+	}
+
+	public function actionOrder(){
+		$this->render('order');
 	}
 
 	public function actionAddToCart($itemId) {
@@ -68,7 +85,31 @@ class SiteController extends Controller
 		else
 			$cart[$itemId] = $count;
 
+		Yii::app()->session['cart'] = $cart;
+
 		$this->redirect(array('site/cart'));
+	}
+
+	public function actionChangeCart(){
+		if ($_POST['recalculate']) {
+			$cart = array();
+			foreach($_POST['count'] as $itemId => $count) {
+				if ($count > 0)
+					$cart[$itemId] = $count;
+			}
+			Yii::app()->session['cart'] = $cart;
+
+			$this->redirect(array('site/cart'));
+		} else if ($_POST['removeFromCart']) {
+			$cart = Yii::app()->session['cart'];
+			foreach($cart as $itemId => $count) {
+				if ($itemId == $_POST['removeItemId'])
+					unset($cart[$itemId]);
+			}
+			Yii::app()->session['cart'] = $cart;
+
+			$this->redirect(array('site/cart'));
+		}
 	}
 
 	public function actionIndex()

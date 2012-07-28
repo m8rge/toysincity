@@ -1,0 +1,98 @@
+{% extends '/views/layouts/main.twig' %}
+
+{% block content %}
+<table class="cpt_product_category_info">
+	<tr>
+		<td><h1 style="font-size: 20px">Корзина</h1>
+		</td></tr>
+</table>
+
+		{% if cart %}
+<form action="{{C.Html.normalizeUrl({0:'site/changeCart'})}}" method="post">
+	<input type="hidden" value="" id="removeFromCart" name="removeItemId">
+<table>
+	<tr>
+		<th></th>
+		<th></th>
+		<th>Кол-во</th>
+		<th>Стоимость</th>
+		<th></th>
+	</tr>
+{% for itemId, count in cart %}
+	{% set item = items[itemId] %}
+<tr>
+	<td>													<a href="{{item.url}}">
+		<img src="{{item.photoUrl}}" alt="{{item.name}}" title="{{item.name}}" style="max-width: 150px">
+	</a>
+	</td>
+	<td>			<a href="{{item.url}}">{{item.name}}</a>
+	</td>
+	<td>
+		<input type="text" value="{{count}}" name="count[{{itemId}}]"size="3" >
+	</td>
+	<td>
+	{{item.price*count}} руб.
+	</td>
+	<td>
+		<input type="submit" name="removeFromCart" value="Убрать из корзины" onclick="$('#removeFromCart').val('{{itemId}}');"></td>
+</tr>
+{% endfor  %}
+</table>
+
+	<input type="submit" name="recalculate" value="Пересчитать">
+	<input type="button" name="order" value="Оформить заказ" onclick="$('#order').show();return false;">
+	<script type="text/javascript"></script>
+</form>
+<p>&nbsp;</p>
+
+
+<div id="order" {%if not order.getErrors%}style="display: none;"{%endif%}>
+<p class="note"><strong>Поля с символом <span class="required">*</span> обязательны для заполнения.</strong></p>
+{% set form = this.beginWidget('CActiveForm', {
+	'enableClientValidation': true,
+	'clientOptions': {'validateOnSubmit': true},
+}) %}
+	<p>
+		{{form.labelEx(order,'userName')|raw}}
+		{{form.textField(order,'userName')|raw}}
+		{{form.error(order,'userName')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'userEmail')|raw}}
+		{{form.textField(order,'userEmail')|raw}}
+		{{form.error(order,'userEmail')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'userPhone')|raw}}
+		{{form.textField(order,'userPhone')|raw}}
+		{{form.error(order,'userPhone')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'address')|raw}}
+		{{form.textField(order,'address')|raw}}
+		{{form.error(order,'address')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'date')|raw}}
+		{{form.textField(order,'date')|raw}}
+		{{form.error(order,'date')|raw}}
+	</p>
+<p>
+	{{C.Html.submitButton('Заказать')|raw}}
+</p>
+{{ void(this.endWidget()) }}
+</div>
+	<style type="text/css">
+	td {
+		padding: 5px;
+	}
+		label {
+			width: 130px;
+			display: inline-block;
+		}
+</style>
+		{%else%}
+		Корзина пустая
+		{%endif%}
+{% endblock %}
+
