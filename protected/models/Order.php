@@ -99,13 +99,13 @@ class Order extends CActiveRecord
 		return date("H:i d-m-Y",$this->created);
 	}
 
-	public function getOrderText() {
+	public function getOrderText($delimiter = '<br>') {
 		$order = json_decode($this->order, true);
 		if (!is_array($order))
 			$order = array();
 		$text = '';
 		foreach($order as $itemId=>$count)
-			$text.=Item::model()->findByPk($itemId)->name." - $count шт. <br>";
+			$text.=Item::model()->findByPk($itemId)->name." - $count шт. ".$delimiter;
 		return $text;
 	}
 }

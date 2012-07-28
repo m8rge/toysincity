@@ -61,6 +61,14 @@ class SiteController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if($order->validate() && $order->save()) {
 				Yii::app()->session['cart'] = array();
+				MailHelper::sendTextMail('toysincity.ru','robot@toysincity.ru', Yii::app()->params['adminEmail'],'Заказ '.$order->id,
+"Имя: {$order->userName}
+Телефон: {$order->userPhone}
+email: {$order->userEmail}
+Дата доставки: {$order->date}
+Адрес доставки: {$order->address}
+Дата создания заказа: {$order->getFormattedCreatedDate()}
+Заказ: {$order->getOrderText("\n")}");
 				$this->redirect(array('site/order'));
 			}
 		}
