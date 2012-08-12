@@ -39,7 +39,7 @@ class RenderHelper
 		$fs = Yii::app()->fs;
 
 		$item = $item->getAttributes();
-		$item['photo'] = json_decode($item['photo'], true);
+//		$item['photo'] = json_decode($item['photo'], true);
 		foreach($item['photo'] as $id => $uid) {
 			$item['photo'][$id] = $fs->getFileUrl($uid);
 		}

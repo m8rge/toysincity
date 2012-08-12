@@ -15,7 +15,16 @@ class AdminOrdersController extends AdminController
 			'formattedCreatedDate' => array(
 				'type' => 'uneditable',
 			),
-			'address' => array(
+			'city' => array(
+				'type' => 'uneditable',
+			),
+			'street' => array(
+				'type' => 'uneditable',
+			),
+			'house' => array(
+				'type' => 'uneditable',
+			),
+			'apartment' => array(
 				'type' => 'uneditable',
 			),
 			'date' => array(
@@ -43,7 +52,19 @@ class AdminOrdersController extends AdminController
 		$columns = array(
 			'id',
 			array(
-				'name' => 'address',
+				'name' => 'city',
+				'sortable' => false,
+			),
+			array(
+				'name' => 'street',
+				'sortable' => false,
+			),
+			array(
+				'name' => 'house',
+				'sortable' => false,
+			),
+			array(
+				'name' => 'apartment',
 				'sortable' => false,
 			),
 			array(

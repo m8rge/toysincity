@@ -67,10 +67,28 @@
 		{{form.textField(order,'userPhone')|raw}}
 		{{form.error(order,'userPhone')|raw}}
 	</p>
+    <p>
+        Адрес доставки:
+    </p>
 	<p>
-		{{form.labelEx(order,'address')|raw}}
-		{{form.textField(order,'address')|raw}}
-		{{form.error(order,'address')|raw}}
+		{{form.labelEx(order,'city')|raw}}
+		{{form.textField(order,'city')|raw}}
+		{{form.error(order,'city')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'street')|raw}}
+		{{form.textField(order,'street')|raw}}
+		{{form.error(order,'street')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'house')|raw}}
+		{{form.textField(order,'house')|raw}}
+		{{form.error(order,'house')|raw}}
+	</p>
+	<p>
+		{{form.labelEx(order,'apartment')|raw}}
+		{{form.textField(order,'apartment')|raw}}
+		{{form.error(order,'apartment')|raw}}
 	</p>
 	<p>
 		{{form.labelEx(order,'date')|raw}}
@@ -91,6 +109,23 @@
 			display: inline-block;
 		}
 </style>
+<script type="text/javascript" src="{{App.request.baseUrl}}/js/glDatePicker.js"></script>
+<link rel="stylesheet" href="{{App.request.baseUrl}}/css/datepicker.css" type="text/css">
+<script type="text/javascript">
+    $('#Order_date').glDatePicker({
+        allowOld: false,
+        startDate: new Date(),
+        onChange: function(target, newDate)
+        {
+            target.val
+                    (
+                            newDate.getDate() + "." +
+                                    (newDate.getMonth()+1) + "." +
+                                    newDate.getFullYear()
+                    );
+        }
+    });
+</script>
 		{%else%}
 		Корзина пустая
 		{%endif%}

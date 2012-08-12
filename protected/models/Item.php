@@ -3,7 +3,7 @@
 /**
  * @property int id
  * @property string name
- * @property string photo
+ * @property array photo
  * @property string description
  * @property int price
  * @property int article
@@ -13,6 +13,12 @@
  */
 class Item extends CActiveRecord
 {
+	/** @var array */
+	public $_image;
+
+	/** @var array */
+	public $_removeImageFlag;
+
 	/**
 	 * @static
 	 * @param string $className
@@ -21,6 +27,16 @@ class Item extends CActiveRecord
 	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'serializedFields' => array(
+				'class' => 'application.components.SerializedFieldsBehavior',
+				'serializedFields' => array('photo'),
+			)
+		);
 	}
 
 	public function relations()
@@ -51,6 +67,8 @@ class Item extends CActiveRecord
 		return array(
 			'name' => 'Наименование',
 			'previewPhotoUrl' => 'Фото',
+			'_image' => 'Фото',
+			'_removeImageFlag' => 'Удалить фото',
 			'age' => 'Возраст',
 			'description' => 'Описание',
 			'article' => 'Артикул',
@@ -80,7 +98,7 @@ class Item extends CActiveRecord
 		/** @var $fs FileSystem */
 		$fs = Yii::app()->fs;
 
-		foreach(json_decode($this->photo, true) as $uid) {
+		foreach($this->photo as $uid) {
 			$fs->removeFile($uid);
 		}
 	}
@@ -89,8 +107,7 @@ class Item extends CActiveRecord
 		/** @var $fs FileSystem */
 		$fs = Yii::app()->fs;
 
-		$photo = json_decode($this->photo, true);
-		$photo = reset($photo);
+		$photo = reset($this->photo);
 		return $fs->getFileUrl($photo);
 	}
 
@@ -109,5 +126,14 @@ class Item extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 		));
+	}
+
+	public function scopes()
+	{
+		return array(
+			'withImages' => array(
+				'condition' => 'photo != "[]"',
+			),
+		);
 	}
 }

@@ -122,7 +122,7 @@ email: {$order->userEmail}
 
 	public function actionIndex()
 	{
-		$items = Item::model()->findAll(array(
+		$items = Item::model()->withImages()->findAll(array(
 			'order' => 'RAND()',
 			'limit' => 10,
 		));

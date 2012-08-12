@@ -4,7 +4,10 @@
  * @property int id
  * @property int userId
  * @property string order
- * @property string address
+ * @property string city
+ * @property string street
+ * @property string house
+ * @property string apartment
  * @property string date
  * @property string userEmail
  * @property string userName
@@ -52,7 +55,10 @@ class Order extends CActiveRecord
 		return array(
 			'id' => 'Номер заказа',
 			'userId' => 'Пользователь',
-			'address' => 'Адрес доставки',
+			'city' => 'Город',
+			'street' => 'Улица',
+			'house' => 'Дом, корпус',
+			'apartment' => 'Квартира',
 			'date' => 'Дата доставки',
 			'orderText' => 'Содержание заказа',
 			'userName' => 'Имя заказчика',
@@ -69,7 +75,7 @@ class Order extends CActiveRecord
 			array('userEmail', 'email', 'allowEmpty'=>false),
 			array('created', 'numerical', 'integerOnly' => true),
 			array('userId', 'in', 'range' => CHtml::listData(User::model()->findAll(),'id','id')),
-			array('address, date, order', 'safe'),
+			array('city, street, house, apartment, date, order', 'safe'),
 			array('userName, userEmail, userPhone', 'required'),
 
 			array('id, created, userId', 'safe', 'on'=>'search'),
@@ -82,7 +88,10 @@ class Order extends CActiveRecord
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('created', $this->created);
-		$criteria->compare('address', $this->address, true);
+		$criteria->compare('city', $this->city, true);
+		$criteria->compare('street', $this->street, true);
+		$criteria->compare('house', $this->house, true);
+		$criteria->compare('apartment', $this->apartment, true);
 		$criteria->compare('userName', $this->userName, true);
 		$criteria->compare('userEmail', $this->userEmail, true);
 		$criteria->compare('userPhone', $this->userPhone, true);

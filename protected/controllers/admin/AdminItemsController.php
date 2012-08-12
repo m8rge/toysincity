@@ -41,6 +41,14 @@ class AdminItemsController extends AdminController
 			'age' => array(
 				'type' => 'textField',
 			),
+			array(
+				'name' => 'photo',
+				'class' => 'ext.MultiImageFileRowWidget',
+				'options' => array(
+					'thumbnailImage' => 'Yii::app()->fs->getFileUrl($value)',
+					'image' => 'Yii::app()->fs->getFileUrl($value)',
+				),
+			)
 		);
 	}
 
