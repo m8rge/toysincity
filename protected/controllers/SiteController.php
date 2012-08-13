@@ -24,7 +24,7 @@ class SiteController extends Controller
 	}*/
 
 	public function actionCatalog($categoryId) {
-		$items = Item::model()->findAllByAttributes(array('categoryId'=>$categoryId));
+		$items = Item::model()->onSite()->findAllByAttributes(array('categoryId'=>$categoryId));
 		if (empty($items))
 			throw new CHttpException(404);
 
@@ -122,7 +122,7 @@ email: {$order->userEmail}
 
 	public function actionIndex()
 	{
-		$items = Item::model()->withImages()->findAll(array(
+		$items = Item::model()->onSite()->withImages()->findAll(array(
 			'order' => 'RAND()',
 			'limit' => 10,
 		));

@@ -51,12 +51,14 @@ class Item extends CActiveRecord
 	{
 		return array(
 			array('name', 'required'),
-			array('name, photo', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255),
 			array('age', 'length', 'max'=>100),
 			array('description, article', 'safe'),
 			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
-			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id')),
+			array('categoryId', 'safe', 'on'=>'import'),
+			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id'), 'on'=>'insert, update'),
 			array('vendorId', 'in', 'range' => CHtml::listData(Vendor::model()->findAll(),'id','id')),
+			array('photo', 'safe'),
 
 			array('name, age, article, description, price', 'safe', 'on'=>'search'),
 		);
@@ -107,6 +109,8 @@ class Item extends CActiveRecord
 		/** @var $fs FileSystem */
 		$fs = Yii::app()->fs;
 
+		if (!is_array($this->photo))
+			$this->photo = array();
 		$photo = reset($this->photo);
 		return $fs->getFileUrl($photo);
 	}
@@ -134,6 +138,9 @@ class Item extends CActiveRecord
 			'withImages' => array(
 				'condition' => 'photo != "[]"',
 			),
+			'onSite' => array(
+				'condition' => 'categoryId != 0 AND price > 0',
+			)
 		);
 	}
 }
