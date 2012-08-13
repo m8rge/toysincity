@@ -8,6 +8,9 @@ class AdminUsersController extends AdminController
 	public $modelHumanTitle = array('пользователя', 'пользователя', 'пользователей');
 
 	public function getEditFormElements() {
+		$authItems = AuthItem::model()->findAll();
+		$authItems = CHtml::listData($authItems, 'name', 'name');
+
 		return array(
 			'email' => array(
 				'type' => 'textField'
@@ -18,8 +21,20 @@ class AdminUsersController extends AdminController
 			'phone' => array(
 				'type' => 'textField'
 			),
+			'authItems' => array(
+				'type' => 'dropDownList',
+				'data' => $authItems,
+				'htmlOptions' => array(
+					'multiple' => true,
+					'size' => 20,
+				),
+			),
 			'password' => array(
-				'type' => 'passwordField'
+				'type' => 'passwordField',
+				'htmlOptions' => array(
+					'value' => '',
+					'hint' => 'Если ничего не вводить, то пароль не будет изменен.',
+				),
 			),
 		);
 	}
@@ -40,16 +55,20 @@ class AdminUsersController extends AdminController
 	 */
 	public function beforeSave($model)
 	{
-		$model->password = md5($model->password.Yii::app()->params['md5Salt']);;
+		if (mb_strlen($model->password)<32)
+			$model->password = md5($model->password.Yii::app()->params['md5Salt']);;
 		parent::beforeSave($model);
 	}
 
 	/**
 	 * @param User $model
+	 * @param array $attributes
 	 */
-	public function beforeEdit($model)
+	public function beforeSetAttributes($model, &$attributes)
 	{
-		$model->password = '';
-		parent::beforeEdit($model);
+		if (empty($attributes['password']))
+			unset($attributes['password']);
+
+		parent::beforeSetAttributes($model, $attributes);
 	}
 }

@@ -19,9 +19,13 @@ class User extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function init()
+	public function behaviors()
 	{
-		$this->scenario = 'save';
+		return array(
+			'manyToMany' => array(
+				'class' => 'lib.ar-relation-behavior.EActiveRecordRelationBehavior',
+			),
+		);
 	}
 
 	public function attributeLabels()
@@ -31,17 +35,26 @@ class User extends CActiveRecord
 			'name' => 'Имя',
 			'phone' => 'Телефон',
 			'password' => 'Пароль',
+			'authItems' => 'Права',
+		);
+	}
+
+	public function relations()
+	{
+		return array(
+			'authItems' => array(self::MANY_MANY, 'AuthItem', 'AuthAssignment(userid, itemname)'),
 		);
 	}
 
 	public function rules()
 	{
 		return array(
-			array('email', 'email', 'allowEmpty'=>false),
+			array('email', 'required'),
+			array('email', 'email'),
 			array('email', 'unique'),
-			array('email, password', 'required'),
+			array('password', 'required', 'on'=>'insert'),
+			array('password', 'length', 'max'=>31, 'on'=>'insert,update'),
 			array('password', 'length', 'is'=>32, 'allowEmpty'=>false, 'on'=>'save'),
-			array('password', 'length', 'max'=>31, 'allowEmpty'=>false, 'on'=>'edit'),
 			array('name, phone', 'safe'),
 
 			array('email', 'safe', 'on'=>'search'),
