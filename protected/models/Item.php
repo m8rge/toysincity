@@ -10,6 +10,8 @@
  * @property int categoryId
  * @property int vendorId
  * @property string age
+ * @property int ageFrom
+ * @property int ageTo
  *
  * @method Item onSite
  */
@@ -82,6 +84,25 @@ class Item extends CActiveRecord
 			'categoryId' => 'Категория',
 			'vendorId' => 'Производитель',
 		);
+	}
+
+	protected function beforeSave()
+	{
+		if (preg_match('#(\d+)\s*?(?:-|до)\s*?(\d+)#', $this->age, $matches)) {
+			$this->ageFrom = $matches[1];
+			$this->ageTo = $matches[2];
+		} else if (preg_match('#от\s*?(\d+)#', $this->age, $matches)) {
+			$this->ageFrom = $matches[1];
+			$this->ageTo = 99;
+		} else if (preg_match('#(\d+,?\d?)\s*?(?:года?.*?)?\+#', $this->age, $matches)) {
+			$this->ageFrom = $matches[1];
+			$this->ageTo = 99;
+		} else if (preg_match('#(\d+,?\d?)\s*?(?:мес\.?.*?)?\+#', $this->age, $matches)) {
+			$this->ageFrom = $matches[1]/12;
+			$this->ageTo = 99;
+		}
+
+		return parent::beforeSave();
 	}
 
 	public function findOrCreate($article) {

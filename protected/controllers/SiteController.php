@@ -134,9 +134,19 @@ email: {$order->userEmail}
 
 	public function actionSearch() {
 		$items = Item::model();
-		$items->dbCriteria
-			->compare('name', $_GET['searchstring'], true)
-			->compare('article', $_GET['searchstring'], true, 'OR');
+		if (!empty($_GET['searchstring']))
+			$items->dbCriteria
+				->compare('name', $_GET['searchstring'], true)
+				->compare('article', $_GET['searchstring'], true, 'OR');
+		if (!empty($_GET['ageFrom']))
+			$items->dbCriteria
+				->compare('ageTo', '>='.$_GET['ageFrom']);
+		if (!empty($_GET['ageTo']))
+			$items->dbCriteria
+				->compare('ageFrom', '<='.$_GET['ageTo']);
+		if (!empty($_GET['vendor']))
+			$items->dbCriteria
+				->compare('vendorId', $_GET['vendor']);
 
 		$items->onSite();
 

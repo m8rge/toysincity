@@ -39,4 +39,11 @@ class Vendor extends CActiveRecord
 			'criteria' => $criteria,
 		));
 	}
+
+	public function defaultScope()
+	{
+		return array(
+			'order' => 'name',
+		);
+	}
 }

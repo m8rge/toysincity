@@ -4,11 +4,13 @@
 {% block content %}
 <table class="cpt_product_category_info">
 	<tr>
-		<td><h1 style="font-size: 20px">{{App.name}}</h1>
+		<td><h1 style="font-size: 20px">Результаты поиска</h1>
 		</td></tr>
 </table>
 
-
+{% if not items %}
+    <h1>Ничего не найдено</h1>
+{% endif %}
 <table cellpadding="6" border="0" width="95%">
 	{% for item in items %}
 {% if loop.index is not even %}

@@ -57,12 +57,31 @@
                 <span style="font-size: 13px;
 font-weight: bold;
 margin-left: 15px;
-margin-bottom: -10px;
+margin-bottom: -3px;
 display: inline-block;
 margin-top: 11px;">Поиск товаров</span>
-                <input type="text" id="searchstring" name="searchstring" placeholder="название или артикул" title="Поиск товаров">
-                <input type="submit" value="Найти">
+                <input style="width: 167px;" type="text" id="searchstring" name="searchstring" placeholder="название или артикул" title="Поиск товаров">
+                <span style="font-size: 13px;
+margin-left: 15px;
+margin-bottom: -10px;
+display: inline-block;">Возраст от</span>
+                <input type="text" id="ageFrom" name="ageFrom" placeholder="от" class="ageSearch">
+                <input type="text" id="ageTo" name="ageTo" placeholder="до" class="ageSearch">
+                {{ C.Html.dropDownList('vendor', '', C.Html.listData(C.ActiveRecord.model('Vendor').findAll, 'id', 'name'), {
+                'empty' : 'Производитель',
+                'style': 'margin: 0 0 5px 15px; font-size:13px'
+                })|raw }}
+                <input type="submit" style="margin-left: 15px;" value="Найти">
             </form></div>
+            <style type="text/css">
+                .ageSearch {
+                    width: 50px;
+                    margin: 0 0 0 6px;
+                    background-color: white;
+                    border: 1px solid #8CBE1D;
+                    font-weight: normal;
+                    padding: 2px;                }
+            </style>
         </div>
 		<!-- cpt_container_end --></div></div></div>
 	<!-- cpt_container_start -->
