@@ -3,6 +3,7 @@
 {% block content %}
 <h1>Список {{ this.modelHumanTitle[2] }}</h1>
 
+{% if canAdd %}
 {{ widget('bootstrap.widgets.BootButton', {
 	'buttonType' : 'link',
 	'type' : 'primary',
@@ -10,6 +11,7 @@
 	'label' : 'Добавить '~this.modelHumanTitle[0],
 	'url' : ['add'],
 }) }}
+{% endif %}
 
 {{ widget('bootstrap.widgets.BootGridView', {
 	'type' : 'condensed striped',

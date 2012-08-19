@@ -6,6 +6,7 @@ class AdminOrdersController extends AdminController
 {
 	public $modelName = 'Order';
 	public $modelHumanTitle = array('заказ', 'заказа', 'заказов');
+	public $allowedActions = 'view,delete';
 
 	public function getEditFormElements($model) {
 		return array(

@@ -12,6 +12,22 @@ class AdminVendorsController extends AdminController
 			'name' => array(
 				'type' => 'textField'
 			),
+			'description' => array(
+				'type' => 'textArea',
+				'htmlOptions' => array(
+					'style' => 'width:500px;height:400px',
+				),
+			),
 		);
+	}
+
+	public function getTableColumns()
+	{
+		$columns = array(
+			'name',
+		);
+		$columns[]= $this->getButtonsColumn();
+
+		return $columns;
 	}
 }

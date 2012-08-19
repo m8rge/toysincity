@@ -2,10 +2,11 @@
 
 /**
  * @property int id
- * @property string name
- * @property string description
+ * @property string uri
+ * @property string title
+ * @property string content
  */
-class Vendor extends CActiveRecord
+class StaticPage extends CActiveRecord
 {
 	/**
 	 * @static
@@ -20,33 +21,28 @@ class Vendor extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'name' => 'Название',
-			'description' => 'Описание',
+			'uri' => 'Часть ссылки',
+			'title' => 'Заголовок',
+			'content' => 'Содержание',
 		);
 	}
 	public function rules()
 	{
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>255, 'allowEmpty'=>false),
-			array('description', 'safe'),
+			array('uri, title', 'required'),
+			array('title, uri', 'length', 'max'=>255, 'allowEmpty'=>false),
+			array('content', 'safe'),
 		);
 	}
 	public function search()
 	{
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('name', $this->name, true);
+		$criteria->compare('uri', $this->uri, true);
+		$criteria->compare('title', $this->title, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function defaultScope()
-	{
-		return array(
-			'order' => 'name',
-		);
 	}
 }

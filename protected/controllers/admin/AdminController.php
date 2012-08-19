@@ -2,13 +2,17 @@
 
 Yii::app()->getComponent('bootstrap');
 
-abstract class AdminController extends Controller
+class AdminController extends Controller
 {
-	public $modelName = null;
+	/** @var string Name of managed model */
+	public $modelName = '';
 	/**
 	 * @var array Склонение должно соответствовать словам соответственно: (добавить .., редактирование .., список ..)
 	 */
 	public $modelHumanTitle = array('модель','модели','моделей');
+
+	/** @var string Allowed actions. Separate by comma, without spaces. Possible values: add,view,edit,delete */
+	public $allowedActions = 'add,edit,delete';
 
 	public $defaultAction = 'list';
 
@@ -21,8 +25,10 @@ abstract class AdminController extends Controller
 
 	public function accessRules()
 	{
+		$allowedActions = array_merge(explode(',', $this->allowedActions), array('index', 'list'));
 		return array(
 			array('allow',
+				'actions' => $allowedActions,
 				'roles'=>array('admin')
 			),
 			array('deny',
@@ -72,6 +78,15 @@ abstract class AdminController extends Controller
 		));
 	}
 
+	public function actionView() {
+		$model = $this->loadModel();
+
+		$this->render('//admin/crud/view', array(
+			'model' => $model,
+			'editFormElements' => $this->getEditFormElements($model),
+		));
+	}
+
 	public function loadModel() {
 		$model = null;
 		if (isset($_GET['id']))
@@ -96,6 +111,7 @@ abstract class AdminController extends Controller
 		$this->render('//admin/crud/list', array(
 			'model' => $model,
 			'columns' => $this->getTableColumns(),
+			'canAdd' => in_array('add', explode(',', $this->allowedActions)),
 		));
 	}
 
@@ -126,9 +142,26 @@ abstract class AdminController extends Controller
 	}
 
 	public function getButtonsColumn() {
+		$allowedActions = explode(',', $this->allowedActions);
+		$allowDelete = in_array('delete', $allowedActions);
+		$allowView = in_array('view', $allowedActions);
+		$allowEdit = in_array('edit', $allowedActions);
+
+		$template = '';
+		if (!$allowEdit && $allowView)
+			$template = '{view}';//';
+		elseif ($allowEdit)
+			$template = '{update}';
+		if ($allowDelete) {
+			if (!empty($template))
+				$template.= '&nbsp;&nbsp;&nbsp;{delete}';
+			else
+				$template='{delete}';
+		}
+
 		return array(
 			'class' => 'bootstrap.widgets.BootButtonColumn',
-			'template' => '{update}&nbsp;&nbsp;&nbsp;{delete}',
+			'template' => $template,
 			'updateButtonUrl' => 'Yii::app()->controller->createUrl("edit",array("id"=>$data->primaryKey))'
 		);
 	}
