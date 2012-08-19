@@ -1,0 +1,12 @@
+{% extends '/views/layouts/main.twig' %}
+
+{% block content %}
+    <table class="cpt_product_category_info">
+        <tr>
+            <td><h1 style="font-size: 20px">{{vendor.name}}</h1>
+            </td></tr>
+    </table>
+
+
+    {{ vendor.description|nl2br}}
+{% endblock %}

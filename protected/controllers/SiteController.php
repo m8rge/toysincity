@@ -44,6 +44,7 @@ class SiteController extends Controller
 		$this->render('item', array(
 			'item' => RenderHelper::processItem($item),
 			'category' => $item->category,
+			'vendorLink' => CHtml::link($item->vendor->name, array('/site/vendor', 'vendor'=>$item->vendorId)),
 		));
 	}
 
@@ -199,5 +200,10 @@ email: {$order->userEmail}
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function actionVendor(){
+		$vendor = Vendor::model()->findByPk($_GET['vendor']);
+		$this->render('vendor',array('vendor'=>$vendor));
 	}
 }
