@@ -14,7 +14,7 @@
 class Item extends CActiveRecord
 {
 	/** @var array */
-	public $_image;
+	public $_photo;
 
 	/** @var array */
 	public $_removeImageFlag;
@@ -58,6 +58,8 @@ class Item extends CActiveRecord
 			array('categoryId', 'safe', 'on'=>'import'),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id'), 'on'=>'insert, update'),
 			array('vendorId', 'in', 'range' => CHtml::listData(Vendor::model()->findAll(),'id','id')),
+			array('_photo', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' => true),
+			array('_removeImageFlag', 'safe'),
 			array('photo', 'safe'),
 
 			array('name, age, article, description, price', 'safe', 'on'=>'search'),
@@ -69,7 +71,7 @@ class Item extends CActiveRecord
 		return array(
 			'name' => 'Наименование',
 			'previewPhotoUrl' => 'Фото',
-			'_image' => 'Фото',
+			'photo' => 'Фото',
 			'_removeImageFlag' => 'Удалить фото',
 			'age' => 'Возраст',
 			'description' => 'Описание',
@@ -126,6 +128,8 @@ class Item extends CActiveRecord
 		$criteria->compare('price', $this->price);
 		$criteria->compare('categoryId', $this->categoryId);
 		$criteria->compare('vendorId', $this->vendorId);
+
+		$criteria->order = 'id desc';
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

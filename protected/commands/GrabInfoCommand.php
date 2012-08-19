@@ -94,7 +94,7 @@ class GrabInfoCommand extends CConsoleCommand
 			$ext = CFileHelper::getExtension($image);
 			$tmpFile = tempnam(sys_get_temp_dir(), '').'.'.$ext;
 			file_put_contents($tmpFile, $imageContents);
-			$images[$id] = $fs->publishFile($tmpFile);
+			$images[$id] = $fs->publishFile($tmpFile, $image);
 			unlink($tmpFile);
 		}
 		$item->photo = json_encode($images);

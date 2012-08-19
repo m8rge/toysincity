@@ -2,7 +2,7 @@
 
 Yii::app()->getComponent('bootstrap');
 
-class AdminController extends Controller
+abstract class AdminController extends Controller
 {
 	public $modelName = null;
 	/**
@@ -88,7 +88,8 @@ class AdminController extends Controller
 	public function actionList() {
 		/** @var $model CActiveRecord */
 		$model=new $this->modelName('search');
-		$model->unsetAttributes();  // clear any default values
+
+		$this->beforeList($model, $_GET[$this->modelName]);
 		if(isset($_GET[$this->modelName]))
 			$model->attributes=$_GET[$this->modelName];
 
@@ -169,6 +170,12 @@ class AdminController extends Controller
 	 * @param array $attributes
 	 */
 	public function beforeSetAttributes($model, &$attributes) {}
+
+	/**
+	 * @param CActiveRecord $model
+	 * @param array $attributes
+	 */
+	public function beforeList($model, &$attributes) {}
 
 	/**
 	 * @param CActiveRecord $model

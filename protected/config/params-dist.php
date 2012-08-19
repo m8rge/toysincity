@@ -2,9 +2,9 @@
 
 return array(
 	'siteName' => 'Игрушки в городе!',
-	'yiiDebug' => true,
+	'yiiDebug' => false,
 	'adminEmail' => 'to.merge@gmail.com',
-	'imageDriver' => 'GD',
+	'imageDriver' => 'GD', // or ImageMagick
 
 	'dbHost' => '127.0.0.1',
 	'dbName' => 'toysincity',

@@ -47,6 +47,7 @@ class AdminItemsController extends AdminController
 				'options' => array(
 					'thumbnailImage' => 'Yii::app()->fs->getFileUrl($value)',
 					'image' => 'Yii::app()->fs->getFileUrl($value)',
+					'uploadedFileFieldName' => '_photo',
 				),
 			)
 		);
@@ -77,5 +78,33 @@ class AdminItemsController extends AdminController
 		);
 
 		return $attributes;
+	}
+
+	/**
+	 * @param Item $model
+	 */
+	public function beforeSave($model)
+	{
+		/** @var $fs FileSystem */
+		$fs = Yii::app()->fs;
+		foreach ($model->_removeImageFlag as $id => $remove) {
+			if ($remove) {
+				$fs->removeFile($model->photo[$id]);
+				$photos = $model->photo;
+				unset($photos[$id]);
+				$model->photo = $photos;
+			}
+		}
+		if (is_array($model->_photo)) {
+			foreach ($model->_photo as $key => $file) {
+				$file = CUploadedFile::getInstance($model, '_photo[' . $key . ']');
+				if (!is_null($file)) {
+					$photos = $model->photo;
+					$photos[] = $fs->publishFile($file->tempName, $file->name);
+					$model->photo = $photos;
+				}
+			}
+		}
+		parent::beforeSave($model);
 	}
 }

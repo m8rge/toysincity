@@ -68,6 +68,10 @@ return array(
 		'fs' => array(
 			'class' => 'FileSystem'
 		),
+		'image' => array(
+			'class' => 'ext.image.CImageComponent',
+			'driver' => $params['imageDriver'],
+		),
 		'viewRenderer'=>array(
 			'class'=>'ext.ETwigViewRenderer',
 			'twigPathAlias' => 'lib.twig.lib.Twig',
