@@ -10,6 +10,8 @@
  * @property int categoryId
  * @property int vendorId
  * @property string age
+ *
+ * @method Item onSite
  */
 class Item extends CActiveRecord
 {

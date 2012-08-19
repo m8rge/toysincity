@@ -129,7 +129,25 @@ email: {$order->userEmail}
 
 		$this->render('index', array(
 			'items' => RenderHelper::processItems($items),
+		));
+	}
 
+	public function actionSearch() {
+		$items = Item::model();
+		$items->dbCriteria
+			->compare('name', $_GET['searchstring'], true)
+			->compare('article', $_GET['searchstring'], true, 'OR');
+
+		$items->onSite();
+
+		$criteria = $items->dbCriteria;
+		$pager = new CPagination($items->count());
+		$items->dbCriteria = $criteria;
+		$pager->applyLimit($items->dbCriteria);
+
+		$this->render('search', array(
+			'items' => RenderHelper::processItems($items->findAll()),
+			'pager' => $pager,
 		));
 	}
 

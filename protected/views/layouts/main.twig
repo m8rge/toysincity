@@ -31,7 +31,6 @@
 <div><table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tbody><tr>
 	<td id="container_top" colspan="2"><div class="tys_pos_rel">
-		<!-- cpt_container_start -->
 
 		<div class="cpt_divisions_navigation cpt_shopping_cart_info" style="background: rgba(255, 255, 255, 0.7);">
 			{{ widget('zii.widgets.CMenu', {
@@ -41,30 +40,7 @@
             ],
 			}) }}
 		</div>
-		{#<div class="cpt_divisions_navigation" style="background: rgba(255, 255, 255, 0.7);">
-			{{ widget('zii.widgets.CMenu', {
-				'items':[
-					{'label':'Главная', 'url':['/site/index']},
-					{'label':'Корзина', 'url':['/site/cart']},
-					{'label':'Войти', 'url':['/site/login'], 'visible':App.user.isGuest},
-					{'label':'Админ', 'url':['/admin/admin/index'], 'visible':App.user.checkAccess('adminActions')},
-					{'label':'Выйти ('~App.user.name~')', 'url':['/site/logout'], 'visible':not App.user.isGuest}
-				],
-				'htmlOptions' : {
-					'class' : 'vertical',
-				}
-			}) }}
-		</div>#}
 
-		{#<div class="cpt_auxpages_navigation"><ul class="vertical"><li><a href="http://demo-ru.webasyst.net/shop/auxpage_1/">О магазине</a></li><li><a href="http://demo-ru.webasyst.net/shop/auxpage_10/">Оплата</a></li><li><a href="http://demo-ru.webasyst.net/shop/auxpage_2/">Доставка</a></li></ul></div>#}
-
-		{#<div class="cpt_shopping_cart_info"><div class="shcart_link"><a class="hndl_proceed_checkout" rel="nofollow" href="http://demo-ru.webasyst.net/shop/cart/">Моя корзина</a></div>#}
-
-			{#<div id="shpcrtgc">(пусто)</div>#}
-			{#<div id="shpcrtca">&nbsp;</div>#}
-		{#</div>#}
-
-		<!-- cpt_container_end -->
 	</div></td>
 </tr>
 <tr><td id="container_left_sidebar">
@@ -72,79 +48,40 @@
 		<div class="cpt_custom_html"><div class="col_header tys_ltop1">Каталог</div></div>
 
 		<div class="cpt_category_tree" >
-			{#{% if currentCategoryId %}#}
-				{#{{ widget('CategoriesTreeWidget', {'currentCategoryId':currentCategoryId}) }}#}
-			{#{% else %}#}
+
 			{% block categories %}
 				{{ widget('CategoriesTreeWidget') }}
 			{% endblock %}
-			{#{% endif %}#}
-			{#<ul>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/computers/">Компьютеры</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/electronics/">Электроника</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/digital-cameras/">Фототехника</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/books/">Книги</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/music-video/">Музыка и видео</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/downloads/">Программы</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/podarki/">Подарки</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/appliance/">Бытовая техника</a>#}
-			{#</li>#}
-			{#<li class="parent">#}
-				{#<span class="bullet">&nbsp;</span><a href="http://demo-ru.webasyst.net/shop/category/sports-outdoors/">Спорт и отдых</a>#}
-			{#</li>#}
-		{#</ul>#}
-		</div>
-		<!-- cpt_container_end --><!-- cpt_container_start -->
 
+            <div class="cpt_product_search"><form action="{{ C.Html.normalizeUrl(['/site/search']) }}" method="get">
+                <span style="font-size: 13px;
+font-weight: bold;
+margin-left: 15px;
+margin-bottom: -10px;
+display: inline-block;
+margin-top: 11px;">Поиск товаров</span>
+                <input type="text" id="searchstring" name="searchstring" placeholder="название или артикул" title="Поиск товаров">
+                <input type="submit" value="Найти">
+            </form></div>
+        </div>
 		<!-- cpt_container_end --></div></div></div>
 	<!-- cpt_container_start -->
 	<div class="cpt_custom_html"><div class="tys_ltop4"></div></div>
-	<!-- cpt_container_end -->
-
-	<!-- cpt_container_end -->
 </td>
 <td id="container_main_content"><div class="tys_mt"></div><div class="tys_white">
 
 
-
-
-
-<!-- cpt_container_start -->
 <div class="cpt_maincontent"><!-- cpt_container_start -->
 	{% block content %}{% endblock %}
 </div>
-<!-- cpt_container_end -->
 </div><div class="tys_mb"></div></td>
 </tr></tbody></table>
 
 </div>
 
-{#<div id="container_footer"><!-- cpt_container_start -->
-	<div class="cpt_divisions_navigation"><ul class="horizontal"><li><a href="http://demo-ru.webasyst.net/shop/register/">Зарегистрироваться</a></li><li><a href="http://demo-ru.webasyst.net/shop/auth/">Вход с паролем</a></li><li><a href="http://demo-ru.webasyst.net/shop/pricelist/">Прайс-лист</a></li><li><a href="http://demo-ru.webasyst.net/shop/feedback/">Обратная связь</a></li><li><a href="http://demo-ru.webasyst.net/shop/linkexchange/">Обмен ссылками</a></li><li><a href="http://demo-ru.webasyst.net/shop/blog/">Блог / Новости</a></li></ul></div>
-	<!-- cpt_container_end --></div>
-
-<div class="shp_copyright"><i>© <a href="http://demo-ru.webasyst.net/shop/"><u>Мой интернет-магазин</u></a>.
-</i><br></div>
-#}
 </div>
 
 </div>
-<!--  END -->
 
 
 </body></html>

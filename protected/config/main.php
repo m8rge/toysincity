@@ -8,7 +8,7 @@ return array(
 	'name'=>$params['siteName'],
 	'language' => 'ru',
 
-//	'preload'=>array('log'),
+	'preload'=>array('log'),
 
 	'import'=>array(
 		'application.models.*',
@@ -46,7 +46,7 @@ return array(
 				'admin/' => 'admin/admin/index',
 				'admin/<controller:\w+>/' => 'admin/admin<controller>',
 				'admin/<controller:\w+>/<action:\w+>/' => 'admin/admin<controller>/<action>',
-				'<_a:(login|logout|error|cart|addToCart)>/' => 'site/<_a>',
+				'<_a:(login|logout|error|cart|addToCart|search)>/' => 'site/<_a>',
 //				'<controller:\w+>' => '<controller>/index',
 //				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
@@ -93,7 +93,7 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),*/
-		/*'log'=>array(
+		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 //				array(
@@ -104,7 +104,7 @@ return array(
 					'class'=>'CWebLogRoute',
 				),
 			),
-		),*/
+		),
 	),
 
 	'params'=> array_merge($params, array(

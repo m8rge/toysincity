@@ -16,12 +16,22 @@
 	{% endif %}
 	<td valign="top" width="50%">
         {{ itemView.html(item) }}
-
-
 	</td>
 	{% if loop.index is even %}
 </tr>
 {% endif %}
 {% endfor %}
 </table>
+    <div class="pager">
+    {{ widget('CLinkPager', {'pages':pager}) }}
+    </div>
+    <style type="text/css">
+        .pager {
+            font-size: 110%;
+            margin-top: 2em;
+        }
+        div.pager ul.yiiPager {
+            font-size: 100%;
+        }
+    </style>
 {% endblock %}

@@ -1,0 +1,32 @@
+{% macro html(item) %}
+<div class="prdbrief_thumbnail">
+    <table cellpadding="0" cellspacing="0">
+        <tbody><tr>
+            <td align="center" valign="middle" style="width: 150px; height: 150px;">
+                <!-- Thumbnail -->
+                <a href="{{item.url}}">
+                    <img src="{{item.photoUrl}}" alt="{{item.name}}" title="{{item.name}}" style="max-width: 150px">
+                </a>
+            </td>
+        </tr>
+        </tbody></table>
+</div>
+
+<div class="prdbrief_name">
+    <a href="{{item.url}}">{{item.name}}</a>
+</div>
+
+
+<div class="prdbrief_price">
+    <span class="totalPrice">{{item.price}} руб.</span>
+</div>
+
+
+<div class="prdbrief_add2cart">
+    <form action="{{C.Html.normalizeUrl({0:'site/addToCart', 'itemId':item.id})}}" method="post">
+        <input type="hidden" class="product_qty" size="3" name="count" value="1" />
+        <input type="image" src="/images/add2cart_small_ru.gif" alt="добавить в корзину" title="добавить в корзину" class="add2cart_handler" rel="">
+    </form>
+
+</div>
+{% endmacro %}
