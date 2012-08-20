@@ -13,6 +13,6 @@
 [submodule "lib/ar-relation-behavior"]
 	path = lib/ar-relation-behavior
 	url = git@github.com:m8rge/activerecord-relation-behavior.git
-[submodule "lib/markitup"]
-	path = lib/markitup
+[submodule "protected/extensions/markitup/web/markitup"]
+	path = protected/extensions/markitup/web/markitup
 	url = git://github.com/markitup/1.x.git
