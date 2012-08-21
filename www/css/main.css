@@ -431,7 +431,7 @@ h1.welcome { margin:0 10px; color:#006E83}
 	text-decoration:underline;
 }
 #container_top_left .cpt_custom_html { //float:left;}
-#container_main_content ul { list-style-position:inside;}
+#container_main_content ul, #container_main_content ol { list-style-position:inside;}
 /* ====================== STYLES OF ELEMENTS THAT APPEAR INSIDE VARIOUS COMPONENTS ====================== */
 a.shp_logo { line-height:40px; text-decoration:none;}
 span.shp_l1 {

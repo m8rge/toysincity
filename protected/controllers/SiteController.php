@@ -206,4 +206,9 @@ email: {$order->userEmail}
 		$vendor = Vendor::model()->findByPk($_GET['vendor']);
 		$this->render('vendor',array('vendor'=>$vendor));
 	}
+
+	public function actionStaticPage($uri){
+		$page = StaticPage::model()->findByAttributes(array('uri'=>$uri));
+		$this->render('staticPage',array('page'=>$page));
+	}
 }

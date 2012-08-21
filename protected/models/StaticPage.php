@@ -26,6 +26,7 @@ class StaticPage extends CActiveRecord
 			'content' => 'Содержание',
 		);
 	}
+
 	public function rules()
 	{
 		return array(
@@ -34,6 +35,7 @@ class StaticPage extends CActiveRecord
 			array('content', 'safe'),
 		);
 	}
+
 	public function search()
 	{
 		$criteria=new CDbCriteria;
@@ -44,5 +46,9 @@ class StaticPage extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 		));
+	}
+
+	public function getContent(){
+		return BBCodeParser::parse($this->content);
 	}
 }

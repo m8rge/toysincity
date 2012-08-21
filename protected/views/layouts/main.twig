@@ -33,10 +33,14 @@
 	<td id="container_top" colspan="2"><div class="tys_pos_rel">
 
 		<div class="cpt_divisions_navigation cpt_shopping_cart_info" style="background: rgba(255, 255, 255, 0.7);">
+            {% set howtobuy = C.ActiveRecord.model('StaticPage').findByPk(1) %}
+            {% set contacts = C.ActiveRecord.model('StaticPage').findByPk(2) %}
 			{{ widget('zii.widgets.CMenu', {
 				'items':[
 					{'label':'Корзина', 'url':['/site/cart']},
                     {'label':'Обратная связь', 'url':'mailto:'~App.params['adminEmail']},
+                    {'label': howtobuy.title, 'url':{0:'/site/staticPage', 'uri':howtobuy.uri} },
+                    {'label': contacts.title, 'url':{0:'/site/staticPage', 'uri':contacts.uri} },
             ],
 			}) }}
 		</div>
