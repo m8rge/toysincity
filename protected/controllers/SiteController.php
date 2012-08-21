@@ -96,7 +96,10 @@ email: {$order->userEmail}
 
 		Yii::app()->session['cart'] = $cart;
 
-		$this->redirect(array('site/cart'));
+		if (Yii::app()->request->isAjaxRequest)
+			echo json_encode(array('errorCode' => 0));
+		else
+			$this->redirect(array('site/cart'));
 	}
 
 	public function actionChangeCart(){

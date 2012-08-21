@@ -105,6 +105,14 @@ display: inline-block;">Возраст от</span>
 </div>
 
 </div>
-
+<script type="text/javascript" src="{{App.request.baseUrl}}/js/jquery.form.js"></script>
+<script type="text/javascript">
+    $('.addToCart').ajaxForm({
+        success: function (data, statusText, xhr, $form) {
+            $form.append("<span style='margin-left: 1em;'>Товар добавлен в {{ C.Html.link('корзину', {0:'/site/cart'})|raw|escape('js') }}</span>")
+        },
+        dataType: 'json'
+    })
+</script>
 
 </body></html>
