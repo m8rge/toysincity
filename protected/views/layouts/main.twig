@@ -13,7 +13,6 @@
 
 	<link type="text/css" rel="stylesheet" href="{{App.request.baseUrl}}/css/niftyCorners.css" media="screen">
 
-	<script type="text/javascript" src="{{App.request.baseUrl}}/js/jquery-1.7.2.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="{{App.request.baseUrl}}/css/jquery.fancybox.css" />
 	<script type="text/javascript" src="{{App.request.baseUrl}}/js/jquery.fancybox.pack.js"></script>
 </head>
@@ -39,6 +38,7 @@
 				'items':[
 					{'label':'Корзина', 'url':['/site/cart']},
                     {'label':'Обратная связь', 'url':'mailto:'~App.params['adminEmail']},
+                    {'label':'Гостевая книга', 'url':{0:'/qa/index'} },
                     {'label': howtobuy.title, 'url':{0:'/site/staticPage', 'uri':howtobuy.uri} },
                     {'label': contacts.title, 'url':{0:'/site/staticPage', 'uri':contacts.uri} },
             ],
@@ -91,7 +91,7 @@ display: inline-block;">Возраст от</span>
 	<!-- cpt_container_start -->
 	<div class="cpt_custom_html"><div class="tys_ltop4"></div></div>
 </td>
-<td id="container_main_content"><div class="tys_mt"></div><div class="tys_white">
+<td id="container_main_content"><div class="tys_mt"> </div><div class="tys_white">
 
 
 <div class="cpt_maincontent"><!-- cpt_container_start -->

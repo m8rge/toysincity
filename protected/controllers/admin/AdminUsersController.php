@@ -7,7 +7,8 @@ class AdminUsersController extends AdminController
 	public $modelName = 'User';
 	public $modelHumanTitle = array('пользователя', 'пользователя', 'пользователей');
 
-	public function getEditFormElements() {
+	public function getEditFormElements()
+	{
 		$authItems = AuthItem::model()->findAll();
 		$authItems = CHtml::listData($authItems, 'name', 'name');
 
@@ -39,11 +40,21 @@ class AdminUsersController extends AdminController
 		);
 	}
 
-	public function getTableColumns() {
+	public function getTableColumns()
+	{
 		$columns = array(
-			'email',
-			'name',
-			'phone',
+			array(
+				'name' => 'email',
+				'sortable' => false,
+			),
+			array(
+				'name' => 'name',
+				'sortable' => false,
+			),
+			array(
+				'name' => 'phone',
+				'sortable' => false,
+			),
 			$this->getButtonsColumn(),
 		);
 

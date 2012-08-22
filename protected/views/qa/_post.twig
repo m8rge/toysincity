@@ -1,0 +1,44 @@
+<div class="guestBookEntry">
+    <div style="margin-bottom: 1em;">
+        <span class="title">{%if childs%}<span style="margin:0 1em 0 -1.5em">&bull;</span>{%endif%} {{ post.author }}</span>
+        <span class="date">{{ post.getFormattedDate() }}</span>
+    </div>
+    <div style="margin-bottom: 1em;">
+        {{ post.content }}
+    </div>
+
+    {% if not childs %}
+        <button class="writeNew" parentId="{{post.id}}">Ответить</button>
+
+        {% set form = this.beginWidget('CActiveForm', {
+        'enableClientValidation': true,
+        'clientOptions': {'validateOnSubmit': true},
+        'htmlOptions' : {'style':'display:none;', 'class':'newMessage'~post.id}
+        }) %}
+        {{form.hiddenField(newPost,'email', {'value':'1', 'class':'email'})|raw}}
+        {{form.hiddenField(newPost,'parentId', {'value':post.id})|raw}}
+        <p>
+            {{form.labelEx(newPost,'author', {'style':'width:100px; display:inline-block;'})|raw}}
+            {{form.textField(newPost,'author')|raw}}
+            {{form.error(newPost,'author')|raw}}
+        </p>
+        <p>
+            {{form.labelEx(newPost,'content', {'style':'width:100px; display:inline-block;'})|raw}}
+            {{form.textArea(newPost,'content', {'style':'width:300px; height:100px'})|raw}}
+            {{form.error(newPost,'content')|raw}}
+        </p>
+        <p>
+            {{C.Html.submitButton('Отправить сообщение')|raw}}
+        </p>
+        {{ void(this.endWidget()) }}
+    {% endif %}
+</div>
+
+{% if post.childrens %}
+    {% set childs = true %}
+<div style="margin-left: 4em;">
+    {% for post in post.childrens %}
+        {% include('/views/qa/_post.twig') %}
+    {% endfor %}
+</div>
+{% endif %}

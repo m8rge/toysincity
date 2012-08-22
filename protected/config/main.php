@@ -41,6 +41,7 @@ return array(
 			'showScriptName' => false,
 			'rules'=>array(
 				'/'=>'site/index',
+				'guestbook/'=>'qa/index',
 				'catalog/<categoryId:.+>/<itemId:.+>'=>'site/item',
 				'catalog/<categoryId:.+>'=>'site/catalog',
 				'admin/' => 'admin/admin/index',

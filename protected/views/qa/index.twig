@@ -1,0 +1,83 @@
+{% extends '/views/layouts/main.twig' %}
+
+{% block content %}
+    <table class="cpt_product_category_info">
+        <tr>
+            <td><h1 style="font-size: 20px">Гостевая книга</h1>
+            </td></tr>
+    </table>
+
+
+    {% for post in posts %}
+        {% include('/views/qa/_post.twig') %}
+    {% endfor %}
+
+    <hr><br>
+    <button class="writeNew">Написать сообщение</button>
+
+    {% set form = this.beginWidget('CActiveForm', {
+        'enableClientValidation': true,
+        'clientOptions': {'validateOnSubmit': true},
+        'htmlOptions' : {'style':'display:none;', 'class':'newMessage'}
+    }) %}
+    {{form.hiddenField(newPost,'email', {'value':'1', 'class':'email'})|raw}}
+    <p>
+        {{form.labelEx(newPost,'author', {'style':'width:100px; display:inline-block;'})|raw}}
+        {{form.textField(newPost,'author')|raw}}
+        {{form.error(newPost,'author')|raw}}
+    </p>
+    <p>
+        {{form.labelEx(newPost,'content', {'style':'width:100px; display:inline-block;'})|raw}}
+        {{form.textArea(newPost,'content', {'style':'width:300px; height:100px'})|raw}}
+        {{form.error(newPost,'content')|raw}}
+    </p>
+    <p>
+        {{C.Html.submitButton('Отправить сообщение')|raw}}
+    </p>
+    {{ void(this.endWidget()) }}
+
+    <style type="text/css">
+        button {
+            padding: 2px 6px 3px;
+        }
+    </style>
+
+
+
+
+
+    <script type="text/javascript">
+        $('button.writeNew').bind('click', function() {
+            $(this).hide();
+            var parentId = $(this).attr('parentId');
+            if (parentId) {
+                $('form.newMessage'+parentId).show();
+            } else {
+                $('form.newMessage').show();
+            }
+        });
+        $('input.email').remove();
+    </script>
+    <div class="pager">
+        {{ widget('CLinkPager', {'pages':pager}) }}
+    </div>
+    <style type="text/css">
+        .pager {
+            font-size: 110%;
+            margin-top: 2em;
+        }
+        div.pager ul.yiiPager {
+            font-size: 100%;
+        }
+        .title {
+            font-weight: bold;
+            margin-right: 1em;
+        }
+        .date {
+            color: #333;
+        }
+        .guestBookEntry {
+            margin-bottom: 1em;
+        }
+    </style>
+{% endblock %}

@@ -13,4 +13,21 @@ class ExtendedHtml
 	public static function resolveId($model, $attribute) {
 		return CHtml::getIdByName(Chtml::resolveName($model, $attribute));
 	}
+
+	/**
+	 * @param CActiveRecord $model
+	 * @param string $valueField
+	 * @param string $textField
+	 * @return array
+	 */
+	public static function listData($model, $textField = '')
+	{
+		$pk = $model->metaData->tableSchema->primaryKey;
+		if ($textField === '')
+			$textField = $pk;
+
+		return CHtml::listData($model->findAll(array(
+			'select'=> ($pk == $textField) ? $pk : $pk.','.$textField
+		)), $pk, $textField);
+	}
 }
