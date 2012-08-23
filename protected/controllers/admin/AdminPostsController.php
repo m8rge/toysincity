@@ -6,19 +6,19 @@ class AdminPostsController extends AdminController
 {
 	public $modelName = 'Post';
 	public $modelHumanTitle = array('запись', 'записи', 'записей');
-	public $allowedActions = 'edit,delete';
+	public $allowedActions = 'view,delete';
 
 	public function getEditFormElements()
 	{
 		return array(
 			'author' => array(
-				'type' => 'textField'
+				'type' => 'uneditable'
 			),
 			'content' => array(
-				'type' => 'textArea'
+				'type' => 'uneditable'
 			),
-			'date' => array(
-				'type' => 'textField'
+			'formattedDate' => array(
+				'type' => 'uneditable',
 			),
 		);
 	}

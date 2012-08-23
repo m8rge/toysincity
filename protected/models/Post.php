@@ -38,6 +38,7 @@ class Post extends CActiveRecord
 		return array(
 			'author' => 'Имя',
 			'content' => 'Сообщение',
+			'formattedDate' => 'Дата',
 			'date' => 'Дата',
 		);
 	}
