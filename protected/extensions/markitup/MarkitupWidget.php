@@ -17,7 +17,7 @@ class MarkitupWidget extends CWidget
 	public function init()
 	{
 		parent::init();
-		$this->url = Yii::app()->assetManager->publish(__DIR__ . '/web', false, -1, true);
+		$this->url = Yii::app()->assetManager->publish(__DIR__ . '/web', false, -1, YII_DEBUG);
 		Yii::app()->clientScript->registerScriptFile($this->url . '/markitup/markitup/jquery.markitup.js');
 
 		Yii::app()->clientScript->registerCssFile($this->url . '/skin/style.css');

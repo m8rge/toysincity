@@ -38,7 +38,7 @@ class MultiImageFileRowWidget extends CWidget
 				margin-bottom: 5px;
 			}
 			</style>';
-			echo '<div class="controls-group">';
+			echo '<div class="control-group">';
 			$htmlOptions['class'] = 'control-label';
 			echo CHtml::activeLabelEx($model, $attributeName, $htmlOptions);
 			foreach ($model->$attributeName as $id => $value) {

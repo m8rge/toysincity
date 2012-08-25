@@ -4,10 +4,10 @@
 	padding:0;
 }
 html {
-	 _margin-bottom:300px;
+	_margin-bottom:300px;
 
 }
-body { width:100%; height:1%;background:#b8e436 url(../images/chd_htmlbg.jpg) left top repeat-x;width:100%;  
+body { width:100%; height:1%;background:#b8e436 url(../images/chd_htmlbg.jpg) left top repeat-x;width:100%;
 }
 p, body, font, div, td, input, select, textarea {
 	font-family: arial, helvetica, sans-serif;
@@ -66,7 +66,7 @@ input, select { vertical-align:middle;padding: 2px;}
 
 .tys_lbg1 .tys_lbg_l { background: url(../images/tys_lbg1_l.jpg) left bottom no-repeat;}
 .tys_lbg1 .tys_lbg_r { background: url(../images/tys_lbg1_l.jpg) right bottom no-repeat; min-height:283px; //height:auto !important;
-  //height:283px;}
+//height:283px;}
 .tys_lbg2 .tys_lbg_l { background: url(../images/tys_lbg2_l.jpg) left bottom no-repeat;}
 .tys_lbg2 .tys_lbg_r { background: url(../images/tys_lbg2_l.jpg) right bottom no-repeat;}
 .tys_rtop { background: url(../images/chd_rtop.jpg) left top no-repeat; width:228px; height:23px;}
@@ -90,8 +90,8 @@ table.product_print_v { clear:left; }
 #container_top {
 	text-align: left;
 	vertical-align: top;
-/*	padding:25px 25px 0 25px;
-*/	background:url(../images/chd_top.jpg) left top no-repeat;
+	/*	padding:25px 25px 0 25px;
+ */	background:url(../images/chd_top.jpg) left top no-repeat;
 	width:767px;
 	height:229px;
 }
@@ -125,10 +125,10 @@ table.product_print_v { clear:left; }
 }
 .cpt_maincontent {
 
-    font-size:75%;
+	font-size:75%;
 	text-align: left;
 	padding:5px 15px;
-	//width:100%;
+//width:100%;
 }
 .cpt_divisions_navigation, .cpt_auxpages_navigation {
 	font-size:75%;
@@ -158,16 +158,22 @@ ul.horizontal {
 	margin: 0px;
 
 }
-.cpt_divisions_navigation ul li , .cpt_auxpages_navigation ul li { background:url(../images/bullet.gif) left 3px no-repeat;}
+.cpt_divisions_navigation ul li , .cpt_auxpages_navigation ul li { display: inline-block; margin-right: 11px;}
 
-.cpt_divisions_navigation ul li a, .cpt_auxpages_navigation ul li a { color:#404040; line-height:140%; text-decoration:none;  font-weight:bold; }
+.cpt_divisions_navigation ul li a, .cpt_auxpages_navigation ul li a { color: #fff; line-height:140%; text-decoration:none; font-weight: normal; background: #77D431; padding: 1px 10px 5px; border-radius: 10px 10px 0 0; font-family: Tahoma; font-size: 19px; text-shadow: 2px 2px 2px #333;}
 
-.cpt_divisions_navigation ul li a:hover, .cpt_auxpages_navigation ul li a:hover { color:#87ba1a;}
+.cpt_divisions_navigation ul li a:hover, .cpt_auxpages_navigation ul li a:hover {
+	color: #fff;
+	border: none;
+	text-shadow: 1px 1px 4px #444;
+	background: #5cb315;
+}
 
 .cpt_shopping_cart_info {
-position:absolute;
- 	top:170px;
-left:45px;
+	position:absolute;
+
+	top: 190px;
+	left: 13px;
 	font-size:75%;
 	text-align:left;
 	color:#fff;
@@ -184,7 +190,7 @@ left:45px;
 	padding:3px;
 	font-weight:bold;
 	padding:0;
-	
+
 
 }
 #shpcrtgc, #shpcrtca { float:left; width:auto; line-height:22px; margin-top:2px;}
@@ -215,13 +221,13 @@ left:45px;
 }
 .cpt_currency_selection {
 	position:absolute;
- 	top:170px;
+	top:170px;
 	left:245px;
 	font-size: 75%;
 
 }
 .cpt_currency_selection form {
-	 line-height:22px; display:inline; padding:3px 0 4px 0; 
+	line-height:22px; display:inline; padding:3px 0 4px 0;
 //float:left;
 
 }
@@ -233,11 +239,11 @@ left:45px;
 
 }
 .cpt_currency_selection span {
-display:block;
-color:#00;
-font-weight:bold;
- line-height:20px;
- margin-bottom:4px;
+	display:block;
+	color:#00;
+	font-weight:bold;
+	line-height:20px;
+	margin-bottom:4px;
 }
 .cpt_news_short_list {
 	margin:0 0 0 20px;
@@ -263,7 +269,7 @@ font-weight:bold;
 }
 .cpt_category_tree li.child, .cpt_category_tree li.child_current, .cpt_category_tree li.parent_current { border:none;}
 .cpt_category_tree li a {
-background:url(../images/chd_li.gif) left 3px no-repeat;
+	background:url(../images/chd_li.gif) left 3px no-repeat;
 	font-size:13px;
 	font-weight:bold;
 	color:#404040;
@@ -287,17 +293,17 @@ background:url(../images/chd_li.gif) left 3px no-repeat;
 
 
 .cpt_category_tree .child a {
-font-size:95%;
+	font-size:95%;
 	margin-left: 15px;
 	font-weight:normal;
-	 line-height:14px;
+	line-height:14px;
 }
 .cpt_category_tree .child_current a {
 	margin-left: 25px;
 	color: #1c334d!important;
 	text-decoration: none!important;
 	font-size:95%;
-	 line-height:14px;
+	line-height:14px;
 }
 
 .cpt_category_tree .tab {
@@ -310,7 +316,7 @@ font-size:95%;
 .cpt_language_selection {
 	margin:0 5px 0 5px;
 	padding:0 10px;
-	//padding:7px 10px;
+//padding:7px 10px;
 	float:left;
 }
 .cpt_language_selection a { line-height:30px;}
@@ -324,9 +330,9 @@ font-size:95%;
 }
 .cpt_product_category_info td {color:#FF4302;}
 .cpt_product_category_info a {color:#FF4302;
-font-size:130%;
-line-height:150%;
-text-decoration:none;}
+	font-size:130%;
+	line-height:150%;
+	text-decoration:none;}
 .cpt_product_category_info a:hover { border-bottom:solid 1px; }
 
 .cpt_product_search {
@@ -357,7 +363,7 @@ html:first-child .cpt_currency_selection  { line-height:35px;}
 	text-decoration:underline;
 }
 
- .cpt_product_lists {
+.cpt_product_lists {
 	padding-bottom: 20px;
 }
 .cpt_root_categories td {
@@ -404,14 +410,16 @@ ul.product_list li div {
 #cat_advproduct_search select { width:100%;}
 #cat_product_sort { margin-top:10px; }
 h1.welcome { margin:0 10px; color:#006E83}
-.cpt_maincontent .cpt_custom_html h2 { margin:15px 10px 5px 10px; padding:0; text-transform:uppercase; font-size:110%; color:#6fb6c4; background:#eff9fb; padding:5px; font-weight:bold;} 
+.cpt_maincontent .cpt_custom_html h2 { margin:15px 10px 5px 10px; padding:0; text-transform:uppercase; font-size:110%; color:#6fb6c4; background:#eff9fb; padding:5px; font-weight:bold;}
 .home_page_category_logo { background:url(../images/defaultnocatimage.gif) left top no-repeat; display:block; height:65px; width:65px;}
 #container_main_content .cpt_root_categories td { vertical-align:top;}
 #container_main_content .cpt_root_categories td.cat_image a {position:relative; top:-0.8em;}
 #container_main_content .cpt_root_categories { padding-top:1em;}
 /* ====================== SET HOW CERTAIN COMPONENTS APPEAR IN VARIOUS CONTAINERS ====================== */
 /* ====================== (if you wish to overwrite default appearence of components in certain containers) ====================== */
-
+.cpt_divisions_navigation ul li.active a {
+	background: #5CB315;
+}
 #container_footer .cpt_divisions_navigation { float:none; width:100%;
 	text-align:center;
 	padding:0;
@@ -532,7 +540,7 @@ a.prd_thumbnail:hover img {
 	font-weight:bold;
 }
 .news_title {
-color:#404040;
+	color:#404040;
 	padding-bottom: 5px;
 }
 .news_title a { color:#000; font-weight:normal;}
@@ -658,7 +666,7 @@ SHOPPING CART
 	margin: 0px;
 }
 #cart_content_tbl{
-width:100%;
+	width:100%;
 }
 #cart_content_tbl td {
 	padding: 6px;
@@ -668,7 +676,7 @@ width:100%;
 	text-align: left;
 }
 #cart_page_title h1 {
- display inline;
+	display: inline;
 	padding: 0px;
 	margin: 0px;
 }
@@ -807,7 +815,7 @@ CHECKOUT
 	overflow:hidden;
 }
 #checkout_addresses { width:800px;}
-#checkout_addresses td { } 
+#checkout_addresses td { }
 /**********************
 ORDER STYLES
 ***********************/
@@ -850,12 +858,12 @@ tr#ord_total_row * {
 #prddeatailed_container .cpt_product_rate_form table {
 	width: 100%;
 	/***********************/
-width: auto;/**/
+	width: auto;/**/
 }
 
 #block-customerinfo td { font-size:100%;}
 .cpt_product_images {
-width:auto;
+	width:auto;
 }
 #powered_by { line-height:20px; position:relative; top:30px;}
 .shp_copyright {

@@ -16,7 +16,6 @@ class ExtendedHtml
 
 	/**
 	 * @param CActiveRecord $model
-	 * @param string $valueField
 	 * @param string $textField
 	 * @return array
 	 */

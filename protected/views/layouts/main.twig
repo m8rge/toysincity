@@ -13,6 +13,7 @@
 
 	<link type="text/css" rel="stylesheet" href="{{App.request.baseUrl}}/css/niftyCorners.css" media="screen">
 
+    {{ void(App.clientScript.registerCoreScript('jquery')) }}
 	<link rel="stylesheet" type="text/css" href="{{App.request.baseUrl}}/css/jquery.fancybox.css" />
 	<script type="text/javascript" src="{{App.request.baseUrl}}/js/jquery.fancybox.pack.js"></script>
 </head>
@@ -31,11 +32,12 @@
 <tbody><tr>
 	<td id="container_top" colspan="2"><div class="tys_pos_rel">
 
-		<div class="cpt_divisions_navigation cpt_shopping_cart_info" style="background: rgba(255, 255, 255, 0.7);">
+		<div class="cpt_divisions_navigation cpt_shopping_cart_info">
             {% set howtobuy = C.ActiveRecord.model('StaticPage').findByPk(1) %}
             {% set contacts = C.ActiveRecord.model('StaticPage').findByPk(2) %}
 			{{ widget('zii.widgets.CMenu', {
 				'items':[
+					{'label':'Главная', 'url':['/site/index']},
 					{'label':'Корзина', 'url':['/site/cart']},
                     {'label':'Обратная связь', 'url':'mailto:'~App.params['adminEmail']},
                     {'label':'Гостевая книга', 'url':{0:'/qa/index'} },
