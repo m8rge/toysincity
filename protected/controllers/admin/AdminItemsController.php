@@ -58,6 +58,7 @@ class AdminItemsController extends AdminController
 			array(
 				'name' => 'previewPhotoUrl',
 				'class' => 'ext.BootImageColumn',
+				'filter' => array('0' => 'Нет', '1' => 'Есть'),
 			),
 			'article',
 			'name',

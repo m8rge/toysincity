@@ -17,11 +17,12 @@ class BootImageColumn extends BootDataColumn
 		if (empty($this->thumbnailUrl))
 			$this->thumbnailUrl = '$data->'.$this->name;
 		$this->value = '
+			(!empty('.$this->thumbnailUrl.') ?
 			CHtml::link(
 				CHtml::image('.$this->thumbnailUrl.',"", array("style"=>"'.$this->imageStyle.'")),
 				$data->'.$this->name.',
 				array("target" => "_blank")
-			);';
+			) : "")';
 
 		parent::init();
 	}

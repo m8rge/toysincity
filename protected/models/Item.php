@@ -23,6 +23,8 @@ class Item extends CActiveRecord
 	/** @var array */
 	public $_removeImageFlag;
 
+	private $_previewPhotoUrl = null;
+
 	/**
 	 * @static
 	 * @param string $className
@@ -66,7 +68,7 @@ class Item extends CActiveRecord
 			array('_removeImageFlag', 'safe'),
 			array('photo', 'safe'),
 
-			array('name, age, article, description, price', 'safe', 'on'=>'search'),
+			array('name, age, article, description, price, previewPhotoUrl', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -131,13 +133,23 @@ class Item extends CActiveRecord
 	}
 
 	public function getPreviewPhotoUrl() {
+		if (!is_null($this->_previewPhotoUrl))
+			return $this->_previewPhotoUrl;
+
 		/** @var $fs FileSystem */
 		$fs = Yii::app()->fs;
 
 		if (!is_array($this->photo))
 			$this->photo = array();
 		$photo = reset($this->photo);
-		return $fs->getFileUrl($photo);
+		if (!empty($photo))
+			return $fs->getFileUrl($photo);
+		else
+			return '';
+	}
+
+	public function setPreviewPhotoUrl($value) {
+		$this->_previewPhotoUrl = $value;
 	}
 
 	public function search()
@@ -151,11 +163,19 @@ class Item extends CActiveRecord
 		$criteria->compare('price', $this->price);
 		$criteria->compare('categoryId', $this->categoryId);
 		$criteria->compare('vendorId', $this->vendorId);
-
+		if (!is_null($this->_previewPhotoUrl)) {
+			if ($this->_previewPhotoUrl === '1')
+				$criteria->scopes = 'withImages';
+			elseif ($this->_previewPhotoUrl === '0')
+				$criteria->scopes = 'withoutImages';
+		}
 		$criteria->order = 'id desc';
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 30,
+			),
 		));
 	}
 
@@ -164,6 +184,9 @@ class Item extends CActiveRecord
 		return array(
 			'withImages' => array(
 				'condition' => 'photo != "[]"',
+			),
+			'withoutImages' => array(
+				'condition' => 'photo = "[]"',
 			),
 			'onSite' => array(
 				'condition' => 'categoryId != 0 AND price > 0',
