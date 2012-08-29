@@ -67,8 +67,11 @@ class SiteController extends Controller
 "Имя: {$order->userName}
 Телефон: {$order->userPhone}
 email: {$order->userEmail}
-Дата доставки: {$order->date}
-Адрес доставки: {$order->address}
+Дата доставки: {$order->date}
+Город доставки: {$order->city}
+Улица доставки: {$order->street}
+Дом доставки: {$order->house}
+Квартира доставки: {$order->apartment}
 Дата создания заказа: {$order->getFormattedCreatedDate()}
 Заказ: {$order->getOrderText("\n")}");
 				$this->redirect(array('site/order'));
