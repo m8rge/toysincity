@@ -44,6 +44,7 @@ class SiteController extends Controller
 		$this->render('item', array(
 			'item' => RenderHelper::processItem($item),
 			'category' => $item->category,
+			'currentCategoryId' => $item->category->id,
 			'vendorLink' => CHtml::link($item->vendor->name, array('/site/vendor', 'vendor'=>$item->vendorId)),
 		));
 	}
