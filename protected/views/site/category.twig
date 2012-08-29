@@ -2,27 +2,31 @@
 {% import "/views/site/_item.twig" as itemView %}
 
 {% block categories %}
-	{{ widget('CategoriesTreeWidget', {'currentCategoryId':currentCategoryId}) }}
+    {{ widget('CategoriesTreeWidget', {'currentCategoryId':currentCategoryId}) }}
 {% endblock %}
 
 {% block content %}
-<table class="cpt_product_category_info">
-	<tr>
-		<td><h1 style="font-size: 20px">{{category.parent.name}} / {{category.name}}</h1>
-		</td></tr>
-</table>
-<table cellpadding="6" border="0" width="95%">
+    <table class="cpt_product_category_info">
+        <tr>
+            <td><h1 style="font-size: 20px">{{ category.parent.name }} / {{ category.name }}</h1>
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="6" border="0" width="95%">
 
-{% for item in items %}
-{% if loop.index is not even %}
-<tr>
-{% endif %}
-<td valign="top" width="50%">
-{{ itemView.html(item) }}
-</td>
-{% if loop.index is even %}
-</tr>
-{% endif %}
-{% endfor %}
-</table>
+        {% if not items %}
+            Продукты отсутствуют
+        {% endif %}
+        {% for item in items %}
+            {% if loop.index is not even %}
+                <tr>
+            {% endif %}
+                <td valign="top" width="50%">
+                    {{ itemView.html(item) }}
+                </td>
+            {% if loop.index is even %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
 {% endblock %}

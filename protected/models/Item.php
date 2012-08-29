@@ -68,7 +68,7 @@ class Item extends CActiveRecord
 			array('_removeImageFlag', 'safe'),
 			array('photo', 'safe'),
 
-			array('name, age, article, description, price, previewPhotoUrl', 'safe', 'on'=>'search'),
+			array('name, age, article, description, price, previewPhotoUrl, categoryId', 'safe', 'on'=>'search'),
 		);
 	}
 

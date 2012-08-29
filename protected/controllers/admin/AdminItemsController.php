@@ -88,12 +88,14 @@ class AdminItemsController extends AdminController
 	{
 		/** @var $fs FileSystem */
 		$fs = Yii::app()->fs;
-		foreach ($model->_removeImageFlag as $id => $remove) {
-			if ($remove) {
-				$fs->removeFile($model->photo[$id]);
-				$photos = $model->photo;
-				unset($photos[$id]);
-				$model->photo = $photos;
+		if (is_array($model->_removeImageFlag)) {
+			foreach ($model->_removeImageFlag as $id => $remove) {
+				if ($remove) {
+					$fs->removeFile($model->photo[$id]);
+					$photos = $model->photo;
+					unset($photos[$id]);
+					$model->photo = $photos;
+				}
 			}
 		}
 		if (is_array($model->_photo)) {

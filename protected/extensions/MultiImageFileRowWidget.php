@@ -32,7 +32,7 @@ class MultiImageFileRowWidget extends CWidget
 		$attributeName = $this->attributeName;
 		$form = $this->form;
 
-		if (!empty($model->$attributeName) && is_array($model->$attributeName)) {
+//		if (!empty($model->$attributeName) && is_array($model->$attributeName)) {
 			echo '<style type="text/css">
 			.controls-line {
 				margin-bottom: 5px;
@@ -76,7 +76,7 @@ class MultiImageFileRowWidget extends CWidget
 			</script>';
 
 			echo "</div>";
-		}
+//		}
 	}
 
 }
