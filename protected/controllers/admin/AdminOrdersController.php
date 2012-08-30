@@ -6,7 +6,7 @@ class AdminOrdersController extends AdminController
 {
 	public $modelName = 'Order';
 	public $modelHumanTitle = array('заказ', 'заказа', 'заказов');
-	public $allowedActions = 'view,delete';
+	public $allowedActions = 'edit,delete';
 
 	public function getEditFormElements($model) {
 		return array(
@@ -39,6 +39,10 @@ class AdminOrdersController extends AdminController
 			),
 			'userPhone' => array(
 				'type' => 'uneditable',
+			),
+			'status' => array(
+				'type' => 'dropDownList',
+				'data' => Order::model()->getStatuses(),
 			),
 			'orderText' => array(
 				'type' => 'uneditable',
@@ -84,11 +88,11 @@ class AdminOrdersController extends AdminController
 				'name' => 'userPhone',
 				'sortable' => false,
 			),
-//			array(
-//				'name' => 'userId',
-//				'value' => '$data->user->email',
-//				'sortable' => false,
-//			),
+			array(
+				'name' => 'status',
+				'value' => '$data->getStatusName()',
+				'filter' => Order::model()->getStatuses(),
+			),
 			array(
 				'name' => 'created',
 				'filter' => false,

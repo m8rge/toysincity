@@ -13,9 +13,22 @@
  * @property string userName
  * @property string userPhone
  * @property int created
+ * @property int status
  */
 class Order extends CActiveRecord
 {
+	const STATUS_NEW = 0;
+	const STATUS_IN_PROGRESS = 1;
+	const STATUS_CLOSED = 2;
+
+	public function getStatuses(){
+		return array(
+			self::STATUS_NEW => 'Новый',
+			self::STATUS_IN_PROGRESS => 'В работе',
+			self::STATUS_CLOSED => 'Закрыт',
+		);
+	}
+
 	public function behaviors()
 	{
 		return array(
@@ -60,6 +73,7 @@ class Order extends CActiveRecord
 			'house' => 'Дом, корпус',
 			'apartment' => 'Квартира',
 			'date' => 'Дата доставки',
+			'status' => 'Статус',
 			'orderText' => 'Содержание заказа',
 			'userName' => 'Имя заказчика',
 			'userEmail' => 'E-mail заказчика',
@@ -74,11 +88,12 @@ class Order extends CActiveRecord
 		return array(
 			array('userEmail', 'email', 'allowEmpty'=>false),
 			array('created', 'numerical', 'integerOnly' => true),
-			array('userId', 'in', 'range' => CHtml::listData(User::model()->findAll(),'id','id')),
+//			array('userId', 'in', 'range' => CHtml::listData(User::model()->findAll(),'id','id'), 'allowEmpty' => true),
+			array('status', 'in', 'range' => array_keys($this->getStatuses())),
 			array('city, street, house, apartment, date, order', 'safe'),
 			array('userName, userEmail, userPhone', 'required'),
 
-			array('id, created, userId', 'safe', 'on'=>'search'),
+			array('id, created, userId, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,6 +111,7 @@ class Order extends CActiveRecord
 		$criteria->compare('userEmail', $this->userEmail, true);
 		$criteria->compare('userPhone', $this->userPhone, true);
 		$criteria->compare('date', $this->date, true);
+		$criteria->compare('status', $this->status);
 //		$criteria->with = array('user');
 //		$criteria->compare('user.email', $this->userId, true);
 
@@ -106,6 +122,11 @@ class Order extends CActiveRecord
 
 	public function getFormattedCreatedDate(){
 		return date("H:i d-m-Y",$this->created);
+	}
+
+	public function getStatusName(){
+		$statuses = $this->getStatuses();
+		return $statuses[$this->status];
 	}
 
 	public function getOrderText($delimiter = '<br>') {
