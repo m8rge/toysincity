@@ -32,15 +32,15 @@ class MultiImageFileRowWidget extends CWidget
 		$attributeName = $this->attributeName;
 		$form = $this->form;
 
-//		if (!empty($model->$attributeName) && is_array($model->$attributeName)) {
-			echo '<style type="text/css">
-			.controls-line {
-				margin-bottom: 5px;
-			}
-			</style>';
-			echo '<div class="control-group">';
-			$htmlOptions['class'] = 'control-label';
-			echo CHtml::activeLabelEx($model, $attributeName, $htmlOptions);
+		echo '<style type="text/css">
+		.controls-line {
+			margin-bottom: 5px;
+		}
+		</style>';
+		echo '<div class="controls-group">';
+		$htmlOptions['class'] = 'control-label';
+		echo CHtml::activeLabelEx($model, $attributeName, $htmlOptions);
+		if (is_array($model->$attributeName))
 			foreach ($model->$attributeName as $id => $value) {
 				$thumbnail = $value;
 				if (!empty($this->thumbnailImage))
@@ -49,34 +49,33 @@ class MultiImageFileRowWidget extends CWidget
 
 				echo '<div class="controls controls-line">';
 				echo CHtml::link(
-						CHtml::image($thumbnail, '', array('style'=>"max-width:{$this->maxImageSize}px; max-height:{$this->maxImageSize}px")),
-						$image,
-						array('target' => '_blank', 'style'=>'margin-right:1em')
-					);
-				echo '<label class="checkbox" style="display:inline-block" for="'.ExtendedHtml::resolveId($model, $this->removeImageFieldName."[$id]").'">';
+					CHtml::image($thumbnail, '', array('style'=>"max-width:{$this->maxImageSize}px; max-height:{$this->maxImageSize}px")),
+					$image,
+					array('target' => '_blank', 'style'=>'margin-right:1em')
+				);
+				echo '<label class="checkbox" style="display:inline-block" for="'.EHtml::resolveId($model, $this->removeImageFieldName."[$id]").'">';
 				echo $form->checkBox($model, $this->removeImageFieldName."[$id]");
 				echo $model->getAttributeLabel($this->removeImageFieldName);
 				echo '</label></div>';
 			}
 
-			$fileUploadTemplate = '<div class="controls">';
-			$fileUploadTemplate.= CHtml::activeFileField($model, $this->uploadedFileFieldName."[]");
-			$fileUploadTemplate.= "</div>";
-			$fileUploadTemplate = str_replace('"', '\\"', $fileUploadTemplate);
-			echo '<div class="controls js-button">';
-			$this->widget('bootstrap.widgets.BootButton', array(
-				'label' => 'Добавить изображение',
-				'icon' => 'plus',
-			));
-			echo "</div>";
-			echo '<script type="text/javascript">
-			$("div.js-button a").bind("click", function() {
-				$("'.$fileUploadTemplate.'").insertBefore($(this).closest("div.controls")).show();
-			});
-			</script>';
+		$fileUploadTemplate = '<div class="controls">';
+		$fileUploadTemplate.= CHtml::activeFileField($model, $this->uploadedFileFieldName."[]");
+		$fileUploadTemplate.= "</div>";
+		$fileUploadTemplate = str_replace('"', '\\"', $fileUploadTemplate);
+		echo '<div class="controls js-button">';
+		$this->widget('bootstrap.widgets.BootButton', array(
+			'label' => 'Добавить изображение',
+			'icon' => 'plus',
+		));
+		echo "</div>";
+		echo '<script type="text/javascript">
+		$("div.js-button a").bind("click", function() {
+			$("'.$fileUploadTemplate.'").insertBefore($(this).closest("div.controls")).show();
+		});
+		</script>';
 
-			echo "</div>";
-//		}
+		echo "</div>";
 	}
 
 }

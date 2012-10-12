@@ -56,10 +56,11 @@ class Item extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('name', 'required'),
+			array('name, article', 'required'),
 			array('name', 'length', 'max'=>255),
 			array('age', 'length', 'max'=>100),
-			array('description, article', 'safe'),
+			array('description', 'safe'),
+			array('article', 'unique'),
 			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
 			array('categoryId', 'safe', 'on'=>'import'),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id'), 'on'=>'insert, update'),
