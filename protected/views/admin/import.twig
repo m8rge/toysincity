@@ -1,0 +1,26 @@
+{% extends 'views/layouts/admin.twig' %}
+
+{% block content %}
+
+	<h2>Импорт продуктов</h2>
+
+	{{ widget('bootstrap.widgets.BootAlert', {}) }}
+
+	{% set form = this.beginWidget('bootstrap.widgets.BootActiveForm', {
+	'type' : 'horizontal',
+	'enableClientValidation': true,
+	'clientOptions': {'validateOnSubmit': true},
+	'htmlOptions' : {'enctype' : 'multipart/form-data', 'id' : 'importForm'},
+	}) %}
+
+	{{ form.fileFieldRow(importForm, 'file', {})|raw }}
+	<div class="form-actions">
+		{{ widget('bootstrap.widgets.BootButton', {
+		'buttonType' : 'submit',
+		'icon' : 'download',
+		'label' : 'Импортировать',
+		}) }}
+	</div>
+
+	{{ void(this.endWidget()) }}
+{% endblock %}

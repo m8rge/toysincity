@@ -12,6 +12,7 @@
  * @property string age
  * @property int ageFrom
  * @property int ageTo
+ * @property bool display
  *
  * @method Item onSite
  */
@@ -61,6 +62,7 @@ class Item extends CActiveRecord
 			array('age', 'length', 'max'=>100),
 			array('description', 'safe'),
 			array('article', 'unique'),
+			array('display', 'boolean', 'allowEmpty'=>false),
 			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
 			array('categoryId', 'safe', 'on'=>'import'),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id'), 'on'=>'insert, update'),
@@ -86,6 +88,7 @@ class Item extends CActiveRecord
 			'price' => 'Цена',
 			'categoryId' => 'Категория',
 			'vendorId' => 'Производитель',
+			'display' => 'Отображать на сайте',
 		);
 	}
 
@@ -162,6 +165,7 @@ class Item extends CActiveRecord
 		$criteria->compare('article', $this->article, true);
 		$criteria->compare('description', $this->description, true);
 		$criteria->compare('price', $this->price);
+		$criteria->compare('display', $this->display);
 		$criteria->compare('categoryId', $this->categoryId);
 		$criteria->compare('vendorId', $this->vendorId);
 		if (!is_null($this->_previewPhotoUrl)) {
@@ -190,7 +194,7 @@ class Item extends CActiveRecord
 				'condition' => 'photo = "[]"',
 			),
 			'onSite' => array(
-				'condition' => 'categoryId != 0 AND price > 0',
+				'condition' => 'categoryId != 0 AND price > 0 AND display = 1',
 			)
 		);
 	}

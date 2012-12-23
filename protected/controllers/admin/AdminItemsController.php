@@ -41,6 +41,9 @@ class AdminItemsController extends AdminController
 			'age' => array(
 				'type' => 'textField',
 			),
+			'display' => array(
+				'type' => 'checkBoxField',
+			),
 			array(
 				'name' => 'photo',
 				'class' => 'ext.MultiImageFileRowWidget',
@@ -74,6 +77,12 @@ class AdminItemsController extends AdminController
 				'value' => '$data->vendor->name',
 				'filter' => CHtml::listData(Vendor::model()->findAll(), 'id', 'name'),
 				'sortable' => false,
+			),
+			array(
+				'name' => 'display',
+				'sortable' => false,
+				'value' => '($data->display ? "Да" : "Нет")',
+				'filter' => array('0' => 'Нет', '1' => 'Да'),
 			),
 			$this->getButtonsColumn(),
 		);
