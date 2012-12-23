@@ -47,7 +47,7 @@ return array(
 				'admin/' => 'admin/admin/index',
 				'admin/<controller:\w+>/' => 'admin/admin<controller>',
 				'admin/<controller:\w+>/<action:\w+>/' => 'admin/admin<controller>/<action>',
-				'<uri:(buy-guide|about)>' => 'site/staticPage',
+				'<uri:(buy-guide|about|brands|articles)>' => 'site/staticPage',
 				'<_a:(login|logout|error|cart|addToCart|search|vendor)>/' => 'site/<_a>',
 //				'<controller:\w+>' => '<controller>/index',
 //				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
