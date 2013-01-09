@@ -61,6 +61,7 @@ class AdminImportController extends Controller
 				$item = Item::model()->findByAttributes(array('article'=>$str[2]));
 				if ($item instanceof Item) {
 					$item->display = true;
+					$item->price = str_replace(',', '', $str[11]);
 					$item->scenario = 'import';
 					if (!$item->save())
 						throw new CException('Не могу сохранить Продукт: '.print_r($item->errors, true));
