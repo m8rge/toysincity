@@ -8,7 +8,7 @@ class AdminPostsController extends AdminController
 	public $modelHumanTitle = array('запись', 'записи', 'записей');
 	public $allowedActions = 'view,delete';
 
-	public function getEditFormElements()
+	public function getEditFormElements($model)
 	{
 		return array(
 			'author' => array(

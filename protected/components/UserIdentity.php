@@ -34,7 +34,7 @@ class UserIdentity extends CBaseUserIdentity
 		$record = User::model()->findByAttributes(array('email' => $this->email));
 		if ($record === null)
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
-		else if ($record->password !== md5($this->password . Yii::app()->params['md5Salt']))
+		else if ($record->hashedPassword !== md5($this->password . Yii::app()->params['md5Salt']))
 			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		else {
 			$this->_id = $record->id;

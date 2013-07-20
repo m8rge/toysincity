@@ -7,7 +7,7 @@ class AdminItemsController extends AdminController
 	public $modelName = 'Item';
 	public $modelHumanTitle = array('продукт', 'продукта', 'продуктов');
 
-	public function getEditFormElements() {
+	public function getEditFormElements($model) {
 		return array(
 			'name' => array(
 				'type' => 'textField'
@@ -68,13 +68,13 @@ class AdminItemsController extends AdminController
 			'price',
 			array(
 				'name' => 'categoryId',
-				'value' => '($data->category->parent ? $data->category->parent->name : "")." / ".$data->category->name',
+				'value' => '!empty($data->category) ? ((!empty($data->category->parent) ? $data->category->parent->name : "")." / ".$data->category->name) : ""',
 				'filter' => TreeHelper::getTreeForDropDownBox(Category::model()->findAll()),
 				'sortable' => false,
 			),
 			array(
 				'name' => 'vendorId',
-				'value' => '$data->vendor->name',
+				'value' => '!empty($data->vendor) ? $data->vendor->name : ""',
 				'filter' => CHtml::listData(Vendor::model()->findAll(), 'id', 'name'),
 				'sortable' => false,
 			),

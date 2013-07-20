@@ -67,12 +67,14 @@ margin-bottom: -3px;
 display: inline-block;
 margin-top: 11px;">Поиск товаров</span>
                 <input style="width: 167px;" type="text" id="searchstring" name="searchstring" placeholder="название или артикул" title="Поиск товаров">
-                <span style="font-size: 13px;
-margin-left: 15px;
-margin-bottom: -10px;
-display: inline-block;">Возраст от</span>
-                <input type="text" id="ageFrom" name="ageFrom" placeholder="от" class="ageSearch">
-                <input type="text" id="ageTo" name="ageTo" placeholder="до" class="ageSearch">
+                <div>
+                    <span style="font-size: 13px;
+    margin-left: 15px;
+    margin-bottom: -10px;
+    display: inline-block;">Возраст от</span>
+                    <input type="text" id="ageFrom" name="ageFrom" placeholder="от" class="ageSearch">
+                    <input type="text" id="ageTo" name="ageTo" placeholder="до" class="ageSearch">
+                </div>
                 {{ C.Html.dropDownList('vendor', '', C.Html.listData(C.ActiveRecord.model('Vendor').findAll, 'id', 'name'), {
                 'empty' : 'Производитель',
                 'style': 'margin: 0 0 5px 15px; font-size:13px'

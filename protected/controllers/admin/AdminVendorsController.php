@@ -7,7 +7,7 @@ class AdminVendorsController extends AdminController
 	public $modelName = 'Vendor';
 	public $modelHumanTitle = array('производителя', 'производителя', 'производителей');
 
-	public function getEditFormElements() {
+	public function getEditFormElements($model) {
 		return array(
 			'name' => array(
 				'type' => 'textField'

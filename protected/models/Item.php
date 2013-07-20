@@ -145,7 +145,8 @@ class Item extends CActiveRecord
 
 		if (!is_array($this->photo))
 			$this->photo = array();
-		$photo = reset($this->photo);
+        $photos = $this->photo;
+		$photo = reset($photos);
 		if (!empty($photo))
 			return $fs->getFileUrl($photo);
 		else

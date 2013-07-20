@@ -5,8 +5,11 @@
  * @property int parentId
  * @property string name
  *
- * @property array childs
+ * @property Category[] childs
+ * @property Item[] items
  * @property Category parent
+ *
+ * @method Category firstLevel
  */
 class Category extends CActiveRecord
 {
@@ -20,7 +23,15 @@ class Category extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function rules()
+    public function attributeLabels()
+    {
+        return array(
+            'name' => 'Название',
+            'parentId' => 'Родительская категория',
+        );
+    }
+
+    public function rules()
 	{
 		return array(
 			array('name', 'length', 'max'=>255, 'allowEmpty'=>false),
@@ -33,6 +44,7 @@ class Category extends CActiveRecord
 		return array(
 			'parent' => array(self::BELONGS_TO, 'Category', 'parentId'),
 			'childs' => array(self::HAS_MANY, 'Category', 'parentId'),
+			'items' => array(self::HAS_MANY, 'Item', 'categoryId'),
 		);
 	}
 
@@ -61,4 +73,42 @@ class Category extends CActiveRecord
 
 		return $model;
 	}
+
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('parentId', $this->parentId);
+        $criteria->order = 'parentId desc';
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 30,
+            ),
+        ));
+    }
+
+    public function scopes()
+    {
+        return array(
+            'firstLevel' => array(
+                'condition' => 'parentId IS NULL',
+            ),
+        );
+    }
+
+    protected function afterDelete()
+    {
+        foreach ($this->childs as $child) {
+            $child->delete();
+        }
+
+        foreach ($this->items as $item) {
+            $item->delete();
+        }
+
+    }
+
 }
