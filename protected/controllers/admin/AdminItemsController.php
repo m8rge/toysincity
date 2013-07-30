@@ -42,7 +42,7 @@ class AdminItemsController extends AdminController
 				'type' => 'textField',
 			),
 			'display' => array(
-				'type' => 'checkBoxField',
+				'type' => 'checkBox',
 			),
 			array(
 				'name' => 'photo',
