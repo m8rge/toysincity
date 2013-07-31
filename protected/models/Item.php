@@ -62,7 +62,7 @@ class Item extends CActiveRecord
 			array('age', 'length', 'max'=>100),
 			array('description', 'safe'),
 			array('article', 'unique'),
-			array('display', 'boolean', 'allowEmpty'=>false),
+			array('display', 'boolean'),
 			array('price', 'numerical', 'min'=>0, 'integerOnly'=>true),
 			array('categoryId', 'safe', 'on'=>'import'),
 			array('categoryId', 'in', 'range' => CHtml::listData(Category::model()->findAll(),'id','id'), 'on'=>'insert, update'),
