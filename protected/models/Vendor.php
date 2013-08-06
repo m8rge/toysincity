@@ -4,20 +4,29 @@
  * @property int id
  * @property string name
  * @property string description
+ *
+ * @property Item[] items
  */
 class Vendor extends CActiveRecord
 {
 	/**
 	 * @static
 	 * @param string $className
-	 * @return Vendor|CActiveRecord
+	 * @return Vendor
 	 */
 	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	public function attributeLabels()
+    public function relations()
+    {
+        return array(
+            'items' => array(self::HAS_MANY, 'Item', 'vendorId'),
+        );
+    }
+
+    public function attributeLabels()
 	{
 		return array(
 			'name' => 'Название',
@@ -49,4 +58,11 @@ class Vendor extends CActiveRecord
 			'order' => 'name',
 		);
 	}
+
+    protected function afterDelete()
+    {
+        foreach ($this->items as $item) {
+            $item->delete();
+        }
+    }
 }

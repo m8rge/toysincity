@@ -54,18 +54,31 @@ class AdminImportController extends Controller
 
 		Item::model()->updateAll(array('display'=>false));
 		$sheet = $data->sheets[0];
-		for ($i=0; $i<= $sheet['numRows']; $i++) {
+		for ($i=1; $i<= $sheet['numRows']; $i++) {
 			$str = $sheet['cells'][$i];
 			if (!empty($str[2])) {
 				/** @var $item Item */
 				$item = Item::model()->findByAttributes(array('article'=>$str[2]));
-				if ($item instanceof Item) {
-					$item->display = true;
-					$item->price = str_replace(',', '', $str[11]);
-					$item->scenario = 'import';
-					if (!$item->save())
-						throw new CException('Не могу сохранить Продукт: '.print_r($item->errors, true));
-				}
+                if (empty($item)) {
+                    $vendor = Vendor::model()->findByAttributes(array('name'=>$str[1]));
+                    if (empty($vendor)) {
+                        $vendor = new Vendor();
+                        $vendor->name = $str[1];
+                        if (!$vendor->save())
+                            throw new CException('Не могу сохранить Производителя: '.print_r($vendor->errors, true));
+                    }
+
+                    $item = new Item();
+                    $item->article = $str[2];
+                    $item->vendorId = $vendor->id;
+                    $item->name = $str[3];
+                    $item->photo = array();
+                }
+                $item->display = true;
+                $item->price = str_replace(',', '', $str[11]);
+                $item->scenario = 'import';
+                if (!$item->save())
+                    throw new CException('Не могу сохранить Продукт: '.print_r($item->errors, true) . print_r($item->attributes, true));
 			}
 		}
 		Yii::app()->user->setFlash('success', '<strong>Ура!</strong> Я успешно импортировал данные из файла');
